@@ -1,0 +1,82 @@
+<!-- templates/fragments/form-card.html -->
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <title>Fragmento | Form Card</title>
+</head>
+
+<body>
+
+<!--
+USO:
+<div th:replace="~{fragments/form-card :: form-card(
+    'Título',                           /* titulo   */
+    'fas fa-icon',                      /* icone    */
+    @{/rota},                           /* action   */
+    'post',                             /* method   */
+    @{/voltar},                         /* voltar   */
+    'application/x-www-form-urlencoded',/* enctype  */
+    ~{::formBody}                       /* content  */
+)}">
+  <th:block th:fragment="formBody">
+    <!-- seus campos aqui -->
+  </th:block>
+</div>
+-->
+
+<!-- Fragmento principal -->
+<div th:fragment="form-card(titulo, icone, action, method, voltar, enctype, content)">
+  <div class="card card-primary shadow-sm">
+
+    <!-- Cabeçalho -->
+    <div class="card-header d-flex align-items-center">
+      <i th:class="${icone} + ' mr-2'"></i>
+      <h3 class="card-title mb-0" th:text="${titulo}">Título do Formulário</h3>
+    </div>
+
+    <!-- Formulário -->
+    <form th:action="${action}"
+          th:method="${method}"
+          th:attr="enctype=${enctype}">
+
+      <!-- CSRF seguro via Spring Security Dialect -->
+      <sec:csrfInput/>
+
+      <!-- Corpo -->
+      <div class="card-body">
+        <!-- Insere o bloco recebido como parâmetro -->
+        <th:block th:insert="${content}">
+          <p class="text-muted mb-0">
+            Inclua os campos no fragmento <code>formBody</code>.
+          </p>
+        </th:block>
+      </div>
+
+      <!-- Rodapé -->
+      <div class="card-footer">
+        <div th:replace="~{fragments/form-card :: form-actions(${voltar})}"></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Botões padrão -->
+<!-- fragments/form-card.html (fragmento form-actions) -->
+<div th:fragment="form-actions(voltar)">
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <button type="submit" class="btn btn-primary btn-save btn-sm">
+      <i class="fas fa-save mr-1"></i> Salvar
+    </button>
+    <a th:href="${voltar}" class="btn btn-secondary btn-cancel btn-sm">
+      <i class="fas fa-times mr-1"></i> Cancelar
+    </a>
+  </div>
+</div>
+
+
+</body>
+</html>

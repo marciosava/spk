@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+<head>
+    <title>Dashboard do Administrador</title>
+</head>
+<body>
+    <section layout:fragment="corpo">
+        <div class="page-header">
+            <h2 class="page-title">Dashboard do Administrador</h2>
+        </div>
+
+        <div class="row row-cards">
+            <!-- Card: Parâmetros do Sistema -->
+            <div class="col-sm-6 col-lg-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">Parâmetros do Sistema</h3>
+                        <p class="text-muted">Gerencie os usuários do sistema</p>
+                        <a href="/usuarios" class="btn btn-primary">Acessar</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Adicione outros cards administrativos aqui -->
+        </div>
+    </section>
+</body>
+</html>

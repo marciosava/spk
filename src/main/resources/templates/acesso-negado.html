@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Acesso Negado | SPk Sistema</title>
+    <!-- SweetAlert2 local (já incluso no layout principal) -->
+</head>
+<body>
+    <!-- Conteúdo opcional (pode ser usado para fallback caso JS esteja desabilitado) -->
+    <div layout:fragment="corpo">
+        <div class="content-wrapper">
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="error-page">
+                        <h2 class="headline text-danger">403</h2>
+                        <div class="error-content">
+                            <h3><i class="fas fa-exclamation-triangle text-danger"></i> Acesso Negado</h3>
+                            <p class="mt-3">
+                                Você não tem permissão para acessar esta página.
+                                <a th:href="@{/dashboard}">Retornar ao dashboard</a> ou
+                                <a href="#" onclick="window.history.back();">voltar à página anterior</a>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Script de alerta (executa apenas se JS estiver habilitado) -->
+    <script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Acesso Negado',
+                html: `
+                    <div class="text-left">
+                        <p>Você não tem permissão para acessar esta página.</p>
+                        <hr>
+                        <small class="text-muted">
+                            Usuário: <strong>[[${#authentication.name}]]</strong><br>
+                            Perfil: <span th:text="${#authentication.authorities[0].authority}">ROLE_USER</span>
+                        </small>
+                    </div>
+                `,
+                confirmButtonText: '<i class="fas fa-arrow-left"></i> Voltar',
+                confirmButtonColor: '#dc3545',
+                backdrop: `
+                    rgba(0,0,0,0.7)
+                    url('/image/access-denied-pattern.png')
+                    left top
+                    repeat
+                `,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.history.length > 1 ? window.history.back() : window.location.href = '/dashboard';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

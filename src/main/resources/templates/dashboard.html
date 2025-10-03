@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Dashboard | SPk Sistema</title>
+</head>
+<body>
+
+    <!-- Título da Página -->
+    <div layout:fragment="titulo-pagina">
+        <h1>Dashboard</h1>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div layout:fragment="breadcrumb">
+        <li class="breadcrumb-item active">Dashboard</li>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div layout:fragment="corpo">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Card para ADMIN -->
+                <div class="col-lg-4 col-md-6" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                    <div class="small-box bg-gradient-danger">
+                        <div class="inner">
+                            <h3>Administração</h3>
+                            <p>Acesso às funções administrativas</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <a th:href="@{/usuarios}" class="small-box-footer">
+                            Gerenciar Usuários <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card para USER -->
+                <div class="col-lg-4 col-md-6" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+                    <div class="small-box bg-gradient-primary">
+                        <div class="inner">
+                            <h3>Área do Usuário</h3>
+                            <p>Acesso às funcionalidades padrão</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <a th:href="@{/perfil}" class="small-box-footer">
+                            Meu Perfil <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card Comum -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="small-box bg-gradient-success">
+                        <div class="inner">
+                            <h3 th:text="${totalAtividades}">0</h3>
+                            <p>Atividades Recentes</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <a th:href="@{/atividades}" class="small-box-footer">
+                            Ver Detalhes <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de Gráficos -->
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <h3 class="card-title">Resumo Mensal</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart">
+                                <canvas id="monthlyChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts Específicos -->
+    <div layout:fragment="scripts-adicionais">
+        <!-- ChartJS -->
+        <script th:src="@{/plugins/chart.js/Chart.min.js}"></script>
+        
+        <script>
+            $(function () {
+                // Gráfico mensal
+                var ctx = document.getElementById('monthlyChart').getContext('2d');
+                var chart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+                        datasets: [{
+                            label: 'Atividades',
+                            data: [12, 19, 3, 5, 2, 3],
+                            backgroundColor: 'rgba(60,141,188,0.9)'
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        responsive: true
+                    }
+                });
+            });
+        </script>
+    </div>
+</body>
+</html>

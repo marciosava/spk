@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+<head>
+    <title>Dashboard do Usuário</title>
+</head>
+<body>
+    <section layout:fragment="corpo">
+        <div class="page-header">
+            <h2 class="page-title">Dashboard do Usuário</h2>
+        </div>
+
+        <div class="row row-cards">
+            <div class="col-sm-6 col-lg-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">Bem-vindo ao sistema</h3>
+                        <p class="text-muted">Acesso às funcionalidades permitidas</p>
+                        <a href="/perfil" class="btn btn-outline-primary">Ver perfil</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

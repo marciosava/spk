@@ -1,0 +1,19 @@
+# Build / IDE
+target/
+.idea/
+.vscode/
+.settings/
+.classpath
+.project
+*.iml
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.bak
+*.swp
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz

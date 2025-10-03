@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Início - SPk Sistema</title>
+</head>
+
+<body>
+    <!-- Título da Página -->
+    <div layout:fragment="titulo-pagina">
+        <h1>Painel Principal</h1>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div layout:fragment="breadcrumb">
+        <li class="breadcrumb-item active">Início</li>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div layout:fragment="corpo">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Card de Parâmetros -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>Parâmetros</h3>
+                            <p>Configurações gerais do sistema</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <a th:href="@{/usuarios}" class="small-box-footer">
+                            Acessar <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card de Relatórios -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="small-box bg-gradient-secondary">
+                        <div class="inner">
+                            <h3>Relatórios</h3>
+                            <p>Em desenvolvimento</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <a href="#" class="small-box-footer disabled">
+                            Em breve <i class="fas fa-clock"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card de Cadastro Geral -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="small-box bg-gradient-gray">
+                        <div class="inner">
+                            <h3>Cadastro Geral</h3>
+                            <p>Em breve</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <a href="#" class="small-box-footer disabled">
+                            Em desenvolvimento <i class="fas fa-laptop-code"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card Adicional (Exemplo) -->
+                <div class="col-lg-4 col-md-6" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                    <div class="small-box bg-gradient-danger">
+                        <div class="inner">
+                            <h3>Administração</h3>
+                            <p>Ferramentas administrativas</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <a th:href="@{/admin}" class="small-box-footer">
+                            Gerenciar <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de Informações -->
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Bem-vindo ao SPk Sistema</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info">
+                                <h5><i class="icon fas fa-info-circle"></i> Informações do Sistema</h5>
+                                <p>Versão: <strong>1.0.0</strong> | Último acesso: 
+                                <span th:text="${#dates.format(#authentication.principal.lastAccess, 'dd/MM/yyyy HH:mm')}">01/01/2023 10:00</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts Específicos -->
+    <div layout:fragment="scripts-adicionais">
+        <script>
+            // Pode adicionar scripts específicos da página home aqui
+            console.log('Página home carregada');
+        </script>
+    </div>
+</body>
+</html>

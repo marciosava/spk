@@ -1,0 +1,25 @@
+<style>
+/* Botão Salvar: azul vivo */
+.btn-save,
+.btn-save:hover,
+.btn-save:focus,
+.btn-save:active {
+  background-color: #007bff;   /* Azul Bootstrap "vivo" */
+  border-color: #006fe6;
+  color: #fff;
+  box-shadow: none !important;
+}
+
+/* Botão Cancelar: vermelho vivo */
+.btn-cancel,
+.btn-cancel:hover,
+.btn-cancel:focus,
+.btn-cancel:active {
+  background-color: #dc3545;   /* Vermelho Bootstrap */
+  border-color: #c82333;
+  color: #fff;
+  box-shadow: none !important;
+}
+
+
+</style>

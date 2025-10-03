@@ -1,0 +1,72 @@
+<!-- fragments/sidebar.html -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4" th:fragment="nav-sidebar">
+    <!-- Logo ou nome do sistema -->
+    <a th:href="@{/dashboard}" class="brand-link">
+        <span class="brand-text font-weight-light">SPk Sistema</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Menu de navegação -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column"
+                data-widget="treeview"
+                role="menu"
+                data-accordion="false">
+
+                <!-- Dashboard -->
+                <li class="nav-item">
+                    <a th:href="@{/dashboard}" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+
+                <!-- Usuários -->
+                <li class="nav-item">
+                    <a th:href="@{/usuarios}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Usuários</p>
+                    </a>
+                </li>
+
+                <!-- Exemplo com submenu -->
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-cogs"></i>
+                        <p>
+                            Configurações
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a th:href="@{/parametros}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Parâmetros</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:href="@{/logs}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Logs do Sistema</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Outro item simples -->
+                <li class="nav-item">
+                    <a th:href="@{/sobre}" class="nav-link">
+                        <i class="nav-icon fas fa-info-circle"></i>
+                        <p>Sobre</p>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>
+

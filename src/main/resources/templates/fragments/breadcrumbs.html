@@ -1,0 +1,34 @@
+<!-- fragments/breadcrumbs.html -->
+<div th:fragment="breadcrumb-auto" class="content-header">
+    <div class="container-fluid p-0">
+        <div class="row mb-1">
+            <div class="col-sm-12">
+                <ol class="breadcrumb float-sm-left mb-0">
+                    <li class="breadcrumb-item">
+                        <a th:href="@{/}" class="text-decoration-none">Home</a>
+                    </li>
+
+                    <!-- Inicializa o acumulador -->
+                    <th:block th:with="segments=${(uri != null ? uri : '').split('/')}, path=''">
+                        <li class="breadcrumb-item"
+                            th:each="segment, iterStat : ${segments}"
+                            th:if="${segment != ''}"
+                            th:with="path=${path + '/' + segment}"
+                            th:classappend="${iterStat.last} ? 'active'">
+
+                            <!-- Link para não último item -->
+                            <a th:if="${!iterStat.last}"
+                               th:href="@{${path}}"
+                               class="text-decoration-none"
+                               th:text="${#strings.capitalize(segment)}"></a>
+
+                            <!-- Texto do último item -->
+                            <span th:if="${iterStat.last}"
+                                  th:text="${#strings.capitalize(segment)}"></span>
+                        </li>
+                    </th:block>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>

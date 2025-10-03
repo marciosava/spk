@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+
+<head>
+<title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Alterar
+	Senha</title>
+</head>
+
+<section layout:fragment="corpo">
+	<div class="container mt-4">
+		<div class="row justify-content-center">
+			<div class="col-lg-6 col-md-8">
+				<div class="card card-primary">
+					<div class="card-header">
+						<h3 class="card-title mb-0">
+							<i class="fas fa-lock mr-2"></i> Alterar Senha
+						</h3>
+					</div>
+
+					<form th:action="@{/usuarios/alterar-senha}" method="post"
+						class="p-3" autocomplete="off">
+						<!-- CSRF -->
+						<input type="hidden" th:if="${_csrf != null}"
+							th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+						<div class="form-group">
+							<label for="novaSenha">Nova Senha</label> <input type="password"
+								class="form-control" id="novaSenha" name="novaSenha"
+								minlength="6" required autocomplete="new-password"
+								placeholder="Digite a nova senha">
+						</div>
+
+						<div class="form-group">
+							<label for="confirmarSenha">Confirmar Nova Senha</label> <input
+								type="password" class="form-control" id="confirmarSenha"
+								name="confirmarSenha" minlength="6" required
+								autocomplete="new-password" placeholder="Confirme a nova senha">
+						</div>
+
+						<div class="d-flex justify-content-between">
+							<a th:href="@{/dashboard}" class="btn btn-secondary"> <i
+								class="fas fa-arrow-left mr-1"></i> Voltar
+							</a>
+							<button type="submit" class="btn btn-primary">
+								<i class="fas fa-save mr-1"></i> Salvar
+							</button>
+						</div>
+					</form>
+
+				</div>
+				<!-- Os SweetAlerts aparecem via fragmento 'mensagens' do layout -->
+			</div>
+		</div>
+	</div>
+</section>
+
+</html>

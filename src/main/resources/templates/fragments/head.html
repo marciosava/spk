@@ -1,0 +1,30 @@
+<!-- templates/fragments/head.html -->
+<head th:fragment="head(titulo)">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Título vindo do layout (~{::title}) com fallback -->
+<title th:if="${titulo != null}" th:replace="${titulo}">SPK</title>
+<title th:if="${titulo == null}">SPK</title>
+
+<!-- CSRF: usa a variável _csrf diretamente (sem #request) -->
+<meta th:if="${_csrf != null}" name="_csrf" th:content="${_csrf.token}" />
+<meta th:if="${_csrf != null}" name="_csrf_header"
+	th:content="${_csrf.headerName}" />
+
+<!-- CSS base -->
+<link rel="stylesheet"
+	th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/dist/css/adminlte.min.css}">
+
+<!-- SweetAlert2 (local) -->
+<script defer th:src="@{/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
+
+<!-- Outros CSS -->
+<!-- seu CSS global por último - chat-gpt -->
+<!-- Regra de ouro: app.css sempre por último no head — assim qualquer ajuste global (ex.: “todos os botões Salvar azuis claros”) se propaga sem briga de CSS. -->
+<link rel="stylesheet" th:href="@{/css/app.css}">
+
+</head>
+
+

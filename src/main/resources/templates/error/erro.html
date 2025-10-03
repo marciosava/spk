@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Página de Erro</title>
+    <!-- AdminLTE CSS -->
+    <link th:href="@{/adminlte/plugins/fontawesome-free/css/all.min.css}" rel="stylesheet">
+    <link th:href="@{/adminlte/dist/css/adminlte.min.css}" rel="stylesheet">
+</head>
+<body class="hold-transition layout-top-nav bg-light">
+
+<div class="wrapper">
+
+	<div class="alert alert-warning mt-4">
+	    <h5>Detalhes do Erro (apenas em desenvolvimento)</h5>
+	    <pre th:text="${message}">Stacktrace aqui...</pre>
+	</div>
+
+    <!-- Content Wrapper -->
+    <div class="content-wrapper" style="margin-left: 0;">
+        <section class="content pt-5">
+            <div class="container text-center">
+                <h1 class="display-1 text-danger">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </h1>
+                <h2 class="text-danger" th:text="'Erro ' + ${status}">Erro</h2>
+                <p class="lead" th:text="${error}">Algo deu errado.</p>
+                <p th:if="${message}" th:text="${message}"></p>
+
+				<a href="/" class="btn btn-outline-primary mt-4">
+				    <i class="fas fa-home"></i> Voltar à Página Inicial
+				</a>
+            </div>
+        </section>
+    </div>
+
+</div>
+
+<!-- Scripts AdminLTE -->
+<script th:src="@{/adminlte/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/adminlte/dist/js/adminlte.min.js}"></script>
+</body>
+</html>
+

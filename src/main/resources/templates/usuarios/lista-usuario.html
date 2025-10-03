@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<head>
+    <title>Lista de Usuários</title>
+</head>
+
+<body>
+<main layout:fragment="conteudo">
+    <div th:replace="fragments/breadcrumbs :: breadcrumb-auto"></div>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div th:replace="fragments/mensagens :: mensagens"></div>
+
+            <div class="card card-outline card-primary">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mt-1">Usuários Cadastrados</h3>
+                    <a class="btn btn-primary btn-sm"
+                       th:href="@{/usuarios/cadastrar}">
+                        <i class="fas fa-plus"></i> Novo Usuário
+                    </a>
+                </div>
+
+                <div class="card-body">
+                    <table id="tabela-usuarios" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Usuário</th>
+                            <th>Email</th>
+                            <th>Ativo</th>
+                            <th>Perfis</th>
+                            <th>Ações</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Conteúdo será preenchido via AJAX/DataTables -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Scripts específicos -->
+<script th:src="@{/js/datatables/datatable-config.js}"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - SPk Sistema</title>
+    
+    <!-- Font Awesome (caminho correto para /plugins/) -->
+    <link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+    
+    <!-- AdminLTE CSS (caminho correto para /dist/css/) -->
+    <link rel="stylesheet" th:href="@{/dist/css/adminlte.min.css}">
+    
+    <!-- Custom Login CSS (inline para evitar problemas de carregamento) -->
+    <style>
+        .login-page {
+            background: linear-gradient(135deg, #c8d9ed 0%, #9abee0 100%);
+            min-height: 100vh;
+        }
+        .login-logo {
+            font-size: 2.1rem;
+            font-weight: 300;
+            margin-bottom: 0.9rem;
+            text-align: center;
+        }
+        .login-logo img {
+            height: 50px;
+        }
+        .login-box {
+            width: 360px;
+            margin: 7% auto;
+        }
+        .login-card {
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.08);
+            border: none;
+        }
+        .login-card-body {
+            padding: 2rem;
+        }
+        .login-btn {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body class="hold-transition login-page">
+
+<div class="login-box">
+    <!-- Logo (caminho correto para /images/) -->
+    <div class="login-logo">
+        <img th:src="@{/images/spk-logo.ico}" alt="SPk Logo" onerror="this.style.display='none'">
+        <div class="mt-2">SPk <b>Sistema</b></div>
+    </div>
+
+    <!-- Card de Login -->
+    <div class="card login-card">
+        <div class="card-body login-card-body">
+            <!-- Mensagens de erro/sucesso -->
+            <div th:if="${mensagemErro != null}" class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-ban"></i> Erro!</h5>
+                <span th:text="${mensagemErro}"></span>
+            </div>
+            <div th:if="${param.logout}" class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-check"></i> Sucesso!</h5>
+                Logout realizado com sucesso.
+            </div>
+
+            <p class="login-box-msg">Faça login para iniciar sua sessão</p>
+
+            <form th:action="@{/login}" method="post">
+                <div class="input-group mb-3">
+                    <input type="text" name="username" class="form-control" placeholder="Usuário" required>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" name="password" class="form-control" placeholder="Senha" required>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="icheck-primary">
+                            <input type="checkbox" id="remember" name="remember-me">
+                            <label for="remember">Lembrar-me</label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block login-btn">Entrar</button>
+                    </div>
+                </div>
+            </form>
+
+            <p class="mb-1 mt-3">
+                <a th:href="@{/recuperar-senha}">Esqueci minha senha</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery (caminho correto para /plugins/) -->
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 (caminho correto para /plugins/) -->
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE JS (caminho correto para /dist/js/) -->
+<script th:src="@{/dist/js/adminlte.min.js}"></script>
+
+</body>
+</html>

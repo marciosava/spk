@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<!-- HEAD centralizado no fragment -->
+<head th:replace="fragments/head :: head(~{::title})">
+  <title>SPK</title>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Header / Navbar (seu fragment) -->
+  <div th:replace="fragments/header :: cabecalho"></div>
+
+  <!-- Sidebar (seu fragment) -->
+  <div th:replace="fragments/sidebar :: nav-sidebar"></div>
+
+  <!-- Content Wrapper -->
+  <div class="content-wrapper">
+
+    <!-- Breadcrumbs (padrão = automático; páginas podem sobrescrever via layout:fragment) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div layout:fragment="breadcrumb">
+          <div th:replace="fragments/breadcrumbs :: breadcrumb-auto"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mensagens (flash/alerts) -->
+    <div th:replace="fragments/mensagens :: mensagens"></div>
+
+    <!-- Main content (páginas injetam aqui) -->
+    <section class="content" layout:fragment="corpo">
+      <!-- conteúdo da página -->
+    </section>
+  </div>
+
+  <!-- Footer (seu fragment) -->
+  <div th:replace="fragments/footer :: rodape"></div>
+
+</div>
+
+<!-- Scripts básicos (ajuste caminhos se necessário) -->
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/dist/js/adminlte.min.js}"></script>
+</body>
+</html>
