@@ -1,125 +1,155 @@
-<!-- templates/conta/alterar-senha.html -->
 <!DOCTYPE html>
 <html lang="pt-br"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+      layout:decorate="~{layout-iframe}">
 
 <head>
-  <title>Alterar Senha</title>
+    <title>Alterar Senha | SPK Sistema</title>
 </head>
 
-<!-- Breadcrumb -->
-<div layout:fragment="breadcrumb">
-  <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-  <li class="breadcrumb-item"><a th:href="@{/conta}">Conta</a></li>
-  <li class="breadcrumb-item active">Alterar Senha</li>
-</div>
+<body>
+<div layout:fragment="corpo">
 
-<!-- Conteúdo -->
-<section layout:fragment="corpo" class="content">
-  <div class="container-fluid">
+    <section class="content spk-center-screen">
 
-    <th:block th:with="
-      titulo='Alterar Senha',
-      icone='fas fa-key',
-      action=@{/usuarios/alterar-senha},
-      method='post',
-      voltar=@{/usuarios},
-      enctype='application/x-www-form-urlencoded'
-    ">
+        <div class="container-fluid h-100">
+            <div class="row justify-content-center align-items-center h-100">
 
-      <!-- Card padrão recebendo o corpo como parâmetro (~{::formBody}) -->
-      <div th:replace="~{fragments/form-card :: form-card(
-          ${titulo}, ${icone}, ${action}, ${method}, ${voltar}, ${enctype},
-          ~{::formBody}
-      )}">
+                <div class="col-md-6 col-lg-5">
 
-        <!-- Corpo passado por parâmetro -->
-        <th:block th:fragment="formBody" th:object="${alterarSenhaDto}">
+                    <div class="card card-outline card-primary shadow-sm">
+                        <div class="card-header">
+                            <h3 class="card-title mb-0">
+                                <i class="fas fa-key mr-2"></i>Alterar Senha
+                            </h3>
+                        </div>
 
-          <!-- Alerta (opcional) -->
-          <div th:if="${#fields.hasErrors()}" class="alert alert-danger">
-            Existem erros de validação. Revise os campos destacados.
-          </div>
+                        <div class="card-body">
+                            <form th:action="@{/usuarios/alterar-senha}"
+                                  th:object="${alterarSenhaDto}"
+                                  method="post"
+                                  autocomplete="off">
 
-          <!-- Senha atual -->
-          <div class="form-group">
-            <label for="senhaAtual">Senha atual</label>
-            <div class="input-group">
-              <input id="senhaAtual" type="password" class="form-control"
-                     th:field="*{senhaAtual}" autocomplete="current-password"
-                     placeholder="Digite sua senha atual">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button"
-                        onclick="togglePwd('senhaAtual', this)" title="Mostrar/ocultar">
-                  <i class="fas fa-eye"></i>
-                </button>
-              </div>
+                                <!-- Erros globais -->
+                                <div th:if="${#fields.hasErrors()}" class="alert alert-danger">
+                                    Existem erros de validação. Revise os campos destacados.
+                                </div>
+
+                                <!-- Senha atual -->
+                                <div class="form-group">
+                                    <label for="senhaAtual">Senha atual</label>
+                                    <div class="input-group">
+                                        <input id="senhaAtual"
+                                               type="password"
+                                               class="form-control"
+                                               th:field="*{senhaAtual}"
+                                               autocomplete="current-password"
+                                               placeholder="Digite sua senha atual">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary"
+                                                    type="button"
+                                                    onclick="togglePwd('senhaAtual', this)">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <small class="text-danger"
+                                           th:if="${#fields.hasErrors('senhaAtual')}"
+                                           th:errors="*{senhaAtual}">
+                                    </small>
+                                </div>
+
+                                <!-- Nova senha -->
+                                <div class="form-group">
+                                    <label for="novaSenha">Nova senha</label>
+                                    <div class="input-group">
+                                        <input id="novaSenha"
+                                               type="password"
+                                               class="form-control"
+                                               th:field="*{novaSenha}"
+                                               autocomplete="new-password"
+                                               placeholder="Defina a nova senha">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary"
+                                                    type="button"
+                                                    onclick="togglePwd('novaSenha', this)">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <small class="form-text text-muted">
+                                        Use ao menos 6 caracteres.
+                                    </small>
+                                    <small class="text-danger"
+                                           th:if="${#fields.hasErrors('novaSenha')}"
+                                           th:errors="*{novaSenha}">
+                                    </small>
+                                </div>
+
+                                <!-- Confirmar nova senha -->
+                                <div class="form-group">
+                                    <label for="confirmacaoSenha">Confirmar nova senha</label>
+                                    <div class="input-group">
+                                        <input id="confirmacaoSenha"
+                                               type="password"
+                                               class="form-control"
+                                               th:field="*{confirmacaoSenha}"
+                                               autocomplete="new-password"
+                                               placeholder="Repita a nova senha">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary"
+                                                    type="button"
+                                                    onclick="togglePwd('confirmacaoSenha', this)">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <small class="text-danger"
+                                           th:if="${#fields.hasErrors('confirmacaoSenha')}"
+                                           th:errors="*{confirmacaoSenha}">
+                                    </small>
+                                </div>
+
+                                <!-- Botões -->
+                                <div class="d-flex justify-content-between mt-4">
+                                    <a class="btn btn-secondary" th:href="@{/menu}">
+                                        <i class="fas fa-arrow-left mr-1"></i> Voltar
+                                    </a>
+
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save mr-1"></i> Alterar Senha
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
-            <small class="text-danger" th:if="${#fields.hasErrors('senhaAtual')}"
-                   th:errors="*{senhaAtual}">erro</small>
-          </div>
+        </div>
 
-          <!-- Nova senha -->
-          <div class="form-group">
-            <label for="novaSenha">Nova senha</label>
-            <div class="input-group">
-              <input id="novaSenha" type="password" class="form-control"
-                     th:field="*{novaSenha}" autocomplete="new-password"
-                     placeholder="Defina a nova senha">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button"
-                        onclick="togglePwd('novaSenha', this)" title="Mostrar/ocultar">
-                  <i class="fas fa-eye"></i>
-                </button>
-              </div>
-            </div>
-            <small class="form-text text-muted">
-              Use ao menos 8 caracteres, misturando letras, números e símbolos.
-            </small>
-            <small class="text-danger" th:if="${#fields.hasErrors('novaSenha')}"
-                   th:errors="*{novaSenha}">erro</small>
-          </div>
+    </section>
 
-          <!-- Confirmar nova senha -->
-          <div class="form-group">
-            <label for="confirmacaoSenha">Confirmar nova senha</label>
-            <div class="input-group">
-              <input id="confirmacaoSenha" type="password" class="form-control"
-                     th:field="*{confirmacaoSenha}" autocomplete="new-password"
-                     placeholder="Repita a nova senha">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button"
-                        onclick="togglePwd('confirmacaoSenha', this)" title="Mostrar/ocultar">
-                  <i class="fas fa-eye"></i>
-                </button>
-              </div>
-            </div>
-            <small class="text-danger" th:if="${#fields.hasErrors('confirmacaoSenha')}"
-                   th:errors="*{confirmacaoSenha}">erro</small>
-          </div>
-
-        </th:block>
-        <!-- /formBody -->
-
-      </div>
-      <!-- /form-card -->
-
-    </th:block>
-  </div>
-
-  <!-- Script (mova para seu JS global se preferir) -->
-  <script>
-    function togglePwd(id, btn) {
-      const input = document.getElementById(id);
-      if (!input) return;
-      const icon = btn.querySelector('i');
-      input.type = input.type === 'password' ? 'text' : 'password';
-      icon.classList.toggle('fa-eye');
-      icon.classList.toggle('fa-eye-slash');
+<style>
+    .spk-center-screen {
+        height: calc(100vh - 60px); /* ajuste fino do topo */
+        display: flex;
+        align-items: center;        /* CENTRALIZA VERTICAL */
+        justify-content: center;    /* CENTRALIZA HORIZONTAL */
     }
-  </script>
-</section>
 
+    .spk-center-screen .container-fluid {
+        width: 100%;
+    }
+
+    .spk-center-screen .row {
+        width: 100%;
+        margin: 0;
+    }
+</style>
+</div>
+</body>
 </html>

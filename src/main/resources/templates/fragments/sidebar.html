@@ -1,6 +1,6 @@
 <!-- fragments/sidebar.html -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4" th:fragment="nav-sidebar">
-    <!-- Logo ou nome do sistema -->
+    <!-- Logo / nome do sistema -->
     <a th:href="@{/dashboard}" class="brand-link">
         <span class="brand-text font-weight-light">SPk Sistema</span>
     </a>
@@ -14,7 +14,7 @@
                 role="menu"
                 data-accordion="false">
 
-                <!-- Dashboard -->
+                <!-- Dashboard (NAVEGA normal, fora do workspace) -->
                 <li class="nav-item">
                     <a th:href="@{/dashboard}" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -22,15 +22,18 @@
                     </a>
                 </li>
 
-                <!-- Usuários -->
+                <!-- Usuários (abre no Workspace) -->
                 <li class="nav-item">
-                    <a th:href="@{/usuarios}" class="nav-link">
+                    <a th:href="@{/usuarios}" class="nav-link"
+                       data-workspace
+                       data-title="Usuários"
+                       data-icon="fas fa-users">
                         <i class="nav-icon fas fa-users"></i>
                         <p>Usuários</p>
                     </a>
                 </li>
 
-                <!-- Exemplo com submenu -->
+                <!-- Configurações (submenu) -->
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-cogs"></i>
@@ -40,14 +43,24 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+
+                        <!-- Parâmetros (abre no Workspace) -->
                         <li class="nav-item">
-                            <a th:href="@{/parametros}" class="nav-link">
+                            <a th:href="@{/parametros}" class="nav-link"
+                               data-workspace
+                               data-title="Parâmetros do Sistema"
+                               data-icon="fas fa-sliders-h">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Parâmetros</p>
                             </a>
                         </li>
+
+                        <!-- Logs (abre no Workspace) -->
                         <li class="nav-item">
-                            <a th:href="@{/logs}" class="nav-link">
+                            <a th:href="@{/logs}" class="nav-link"
+                               data-workspace
+                               data-title="Logs do Sistema"
+                               data-icon="fas fa-file-alt">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Logs do Sistema</p>
                             </a>
@@ -55,9 +68,12 @@
                     </ul>
                 </li>
 
-                <!-- Outro item simples -->
+                <!-- Sobre (abre no Workspace) -->
                 <li class="nav-item">
-                    <a th:href="@{/sobre}" class="nav-link">
+                    <a th:href="@{/sobre}" class="nav-link"
+                       data-workspace
+                       data-title="Sobre o Sistema"
+                       data-icon="fas fa-info-circle">
                         <i class="nav-icon fas fa-info-circle"></i>
                         <p>Sobre</p>
                     </a>
@@ -69,4 +85,3 @@
     </div>
     <!-- /.sidebar -->
 </aside>
-

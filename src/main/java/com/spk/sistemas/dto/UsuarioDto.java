@@ -15,7 +15,6 @@ public class UsuarioDto {
         return roleNames;
     }
     
-    
     // Getters e Setters
 
     public static class RoleDto {

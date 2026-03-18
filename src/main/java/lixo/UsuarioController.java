@@ -1,4 +1,4 @@
-package com.spk.sistemas.controller;
+package lixo;
 
 import java.security.Principal;
 import java.util.Map;

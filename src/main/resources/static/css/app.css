@@ -1,4 +1,53 @@
 <style>
+
+/* ==============================
+   ESPAÇAMENTO PADRÃO DE CONTEÚDO
+   ============================== */
+
+/* Aplica margem superior suave para todas as páginas dentro do layout */
+
+.content-wrapper > .content {
+  padding-top: 2rem; /* ou 2rem se quiser mais respiro */
+}
+
+/* E garante que o conteúdo dentro do container principal não fique colado nas bordas */
+.container-fluid {
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+/* ===========================
+   NAVBAR: centralização vertical
+   =========================== */
+
+.main-header .navbar {
+  display: flex;
+  align-items: center;   /* centraliza tudo verticalmente */
+  min-height: 56px;      /* pode ajustar: 56–60px costuma ficar ideal */
+}
+
+/* grupo do lado direito (usuário + função + ícone) */
+.main-header .navbar-nav {
+  display: flex;
+  align-items: center;   /* centraliza verticalmente os <li> */
+}
+
+/* links e botões na navbar */
+.main-header .nav-link {
+  display: flex;
+  align-items: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* avatar/foto de usuário (opcional) */
+.main-header .nav-link img {
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 /* Botão Salvar: azul vivo */
 .btn-save,
 .btn-save:hover,
@@ -20,6 +69,14 @@
   color: #fff;
   box-shadow: none !important;
 }
+
+/* Workspace - visual “ERP” */
+#workspace-root .nav-tabs .nav-link { display: flex; align-items: center; }
+#workspace-root .nav-tabs .btn.btn-link { line-height: 1; opacity: .75; }
+#workspace-root .nav-tabs .btn.btn-link:hover { opacity: 1; }
+#workspaceContent { min-height: 300px; border-radius: .5rem; background: #fff; }
+#workspaceContent .tab-pane { padding: 0; }
+#workspace-root .nav-tabs .btn { cursor: pointer; }
 
 
 </style>

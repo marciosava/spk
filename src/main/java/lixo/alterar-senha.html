@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout-iframe}">
+
+<head>
+    <title>Alterar Senha | SPK Sistema</title>
+</head>
+
+<body>
+<div layout:fragment="corpo">
+
+    <section class="content">
+        <div class="card card-outline card-primary">
+            <div class="card-header">
+                <h3 class="card-title mb-0">
+                    <i class="fas fa-key mr-2"></i>Alterar Senha
+                </h3>
+            </div>
+
+            <div class="card-body">
+                <form th:action="@{/usuarios/alterar-senha}"
+                      th:object="${alterarSenhaDto}"
+                      method="post"
+                      autocomplete="off">
+
+                    <!-- Erros globais -->
+                    <div th:if="${#fields.hasErrors()}" class="alert alert-danger">
+                        Existem erros de validação. Revise os campos destacados.
+                    </div>
+
+                    <!-- Senha atual -->
+                    <div class="form-group">
+                        <label for="senhaAtual">Senha atual</label>
+                        <div class="input-group">
+                            <input id="senhaAtual"
+                                   type="password"
+                                   class="form-control"
+                                   th:field="*{senhaAtual}"
+                                   autocomplete="current-password"
+                                   placeholder="Digite sua senha atual">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary"
+                                        type="button"
+                                        onclick="togglePwd('senhaAtual', this)"
+                                        title="Mostrar/ocultar senha">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <small class="text-danger"
+                               th:if="${#fields.hasErrors('senhaAtual')}"
+                               th:errors="*{senhaAtual}">
+                            erro
+                        </small>
+                    </div>
+
+                    <!-- Nova senha -->
+                    <div class="form-group">
+                        <label for="novaSenha">Nova senha</label>
+                        <div class="input-group">
+                            <input id="novaSenha"
+                                   type="password"
+                                   class="form-control"
+                                   th:field="*{novaSenha}"
+                                   autocomplete="new-password"
+                                   placeholder="Defina a nova senha">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary"
+                                        type="button"
+                                        onclick="togglePwd('novaSenha', this)"
+                                        title="Mostrar/ocultar senha">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <small class="form-text text-muted">
+                            Use ao menos 6 caracteres.
+                        </small>
+                        <small class="text-danger"
+                               th:if="${#fields.hasErrors('novaSenha')}"
+                               th:errors="*{novaSenha}">
+                            erro
+                        </small>
+                    </div>
+
+                    <!-- Confirmar nova senha -->
+                    <div class="form-group">
+                        <label for="confirmacaoSenha">Confirmar nova senha</label>
+                        <div class="input-group">
+                            <input id="confirmacaoSenha"
+                                   type="password"
+                                   class="form-control"
+                                   th:field="*{confirmacaoSenha}"
+                                   autocomplete="new-password"
+                                   placeholder="Repita a nova senha">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary"
+                                        type="button"
+                                        onclick="togglePwd('confirmacaoSenha', this)"
+                                        title="Mostrar/ocultar senha">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <small class="text-danger"
+                               th:if="${#fields.hasErrors('confirmacaoSenha')}"
+                               th:errors="*{confirmacaoSenha}">
+                            erro
+                        </small>
+                    </div>
+
+                    <!-- Botões -->
+                    <div class="d-flex justify-content-between mt-4">
+                        <a class="btn btn-secondary" th:href="@{/usuarios}">
+                            <i class="fas fa-arrow-left mr-1"></i> Voltar
+                        </a>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save mr-1"></i> Alterar Senha
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function togglePwd(id, btn) {
+            const input = document.getElementById(id);
+            if (!input) return;
+
+            const icon = btn.querySelector('i');
+            input.type = input.type === 'password' ? 'text' : 'password';
+
+            if (icon) {
+                icon.classList.toggle('fa-eye');
+                icon.classList.toggle('fa-eye-slash');
+            }
+        }
+    </script>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments/head :: head(~{::title})}">
+    <title>SPK</title>
+</head>
+
+<body class="hold-transition layout-fixed">
+    <div class="wrapper">
+
+        <!-- Mensagens -->
+        <div th:replace="~{fragments/mensagens :: mensagens}"></div>
+
+        <!-- Conteúdo limpo para iframe -->
+        <div class="content-wrapper" style="margin-left: 0; min-height: auto;">
+            <section class="content pt-2 px-2" layout:fragment="corpo">
+                <!-- conteúdo da página -->
+            </section>
+        </div>
+
+    </div>
+
+    <script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+    <script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/dist/js/adminlte.min.js}"></script>
+</body>
+</html>

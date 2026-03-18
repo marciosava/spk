@@ -1,59 +1,67 @@
-<!-- fragments/mensagens.html -->
+<!-- templates/fragments/mensagens.html -->
 <div th:fragment="mensagens">
+    <!-- Utilitários SweetAlert2 (sempre disponíveis) -->
+    <script>
+      // Helpers globais
+      window.msgSuccess = function (text, title = 'Sucesso!') {
+        Swal.fire({ icon: 'success', title, text, confirmButtonColor: '#3085d6' });
+      };
+      window.msgError = function (text, title = 'Erro!') {
+        Swal.fire({ icon: 'error', title, text, confirmButtonColor: '#d33' });
+      };
+      window.msgWarn = function (text, title = 'Atenção!') {
+        Swal.fire({ icon: 'warning', title, text, confirmButtonColor: '#f39c12' });
+      };
+      window.msgLoading = function (text = 'Aguarde... Processando!') {
+        Swal.fire({ title: text, allowOutsideClick: false, allowEscapeKey: false, didOpen: () => Swal.showLoading() });
+      };
+
+      // Confirmação de exclusão genérica
+      // Ex.: confirmarExclusao('/usuarios/excluir/5')
+      window.confirmarExclusao = function (url, {
+        title = 'Tem certeza?',
+        text = 'Deseja realmente excluir este registro?',
+        confirmText = 'Sim, excluir',
+        cancelText = 'Cancelar'
+      } = {}) {
+        Swal.fire({
+          title, text, icon: 'warning', showCancelButton: true,
+          confirmButtonText: confirmText, cancelButtonText: cancelText
+        }).then((result) => {
+          if (result.isConfirmed) { window.location.href = url; }
+        });
+      };
+    </script>
 
     <!-- Sucesso -->
     <script th:inline="javascript" th:if="${msgSucesso != null}">
-        document.addEventListener('DOMContentLoaded', function () {
-            Swal.fire({
-                icon: 'success',
-                title: 'Sucesso!',
-                text: [[${msgSucesso}]],
-                confirmButtonColor: '#3085d6'
-            });
-        });
+      document.addEventListener('DOMContentLoaded', function () {
+        msgSuccess(/*[[${msgSucesso}]]*/ '');
+      });
     </script>
 
     <!-- Erro -->
     <script th:inline="javascript" th:if="${msgErro != null}">
-        document.addEventListener('DOMContentLoaded', function () {
-            Swal.fire({
-                icon: 'error',
-                title: 'Erro!',
-                text: [[${msgErro}]],
-                confirmButtonColor: '#d33'
-            });
-        });
+      document.addEventListener('DOMContentLoaded', function () {
+        msgError(/*[[${msgErro}]]*/ '');
+      });
     </script>
 
     <!-- Aviso -->
     <script th:inline="javascript" th:if="${msgAviso != null}">
-        document.addEventListener('DOMContentLoaded', function () {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Atenção!',
-                text: [[${msgAviso}]],
-                confirmButtonColor: '#f39c12'
-            });
-        });
+      document.addEventListener('DOMContentLoaded', function () {
+        msgWarn(/*[[${msgAviso}]]*/ '');
+      });
     </script>
-    
+
     <!-- Processando -->
-    <!-- COMO USAR NO CONTROLLER -->
-    <!-- redirectAttributes.addFlashAttribute("msgProcessando", "Aguarde... Processando!"); 
+    <!-- COMO USAR NO CONTROLLER:
+         redirectAttributes.addFlashAttribute("msgProcessando", "Aguarde... Processando!");
          return "redirect:/alguma-pagina";
-     -->
-	<script th:inline="javascript" th:if="${msgProcessando != null}">
-	    document.addEventListener('DOMContentLoaded', function () {
-	        Swal.fire({
-	            title: [[${msgProcessando}]],
-	            allowOutsideClick: false,
-	            allowEscapeKey: false,
-	            didOpen: () => {
-	                Swal.showLoading();
-	            }
-	        });
-	    });
-	</script>
-
+    -->
+    <script th:inline="javascript" th:if="${msgProcessando != null}">
+      document.addEventListener('DOMContentLoaded', function () {
+        msgLoading(/*[[${msgProcessando}]]*/ 'Aguarde... Processando!');
+      });
+    </script>
 </div>
-
