@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="~{fragments/head :: head(~{::title})}">
-  <title>SPK</title>
+    <title>SPK Sistemas</title>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
-  <div class="wrapper">
+<div class="wrapper">
 
     <!-- Header / Navbar -->
     <div th:replace="~{fragments/header :: cabecalho}"></div>
@@ -17,52 +18,110 @@
     <div th:replace="~{fragments/sidebar :: nav-sidebar}"></div>
 
     <!-- Content Wrapper -->
-    <div class="content-wrapper">
+    <div class="content-wrapper spk-content-wrapper">
 
-      <!-- Mensagens (flash/alerts) -->
-      <div th:replace="~{fragments/mensagens :: mensagens}"></div>
+        <!-- Mensagens globais -->
+        <div th:replace="~{fragments/mensagens :: mensagens}"></div>
 
-      <!-- ===================== WORKSPACE (abas dinâmicas) ===================== -->
-      <section class="content pt-2 px-2" id="workspace-root">
-        <ul id="workspaceTabs" class="nav nav-tabs" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" id="tab-home-link" data-toggle="tab" href="#tab_home" role="tab">
-              <i class="fas fa-desktop mr-1"></i> Workspace
-            </a>
-          </li>
-        </ul>
+        <!-- Workspace / Abas dinâmicas -->
+        <section class="content pt-2 px-2" id="workspace-root">
+            <div class="container-fluid px-0">
 
-        <div id="workspaceContent" class="tab-content border-left border-right border-bottom rounded-bottom bg-white">
-          <div class="tab-pane fade show active p-3" id="tab_home" role="tabpanel" aria-labelledby="tab-home-link">
+                <div class="card card-outline card-primary shadow-sm mb-3 spk-workspace-card">
+                    <div class="card-header py-2">
+                        <h3 class="card-title mb-0">
+                            <i class="fas fa-desktop mr-2"></i>Workspace SPK
+                        </h3>
+                    </div>
 
-            <!-- Aqui você coloca o banner futuramente -->
-            <div class="text-muted">
-              <i class="fas fa-info-circle mr-2"></i>
-              Abra módulos pelo menu lateral: cada clique vira uma aba independente.
+                    <div class="card-body p-0">
+                        <ul id="workspaceTabs" class="nav nav-tabs spk-tabs px-2 pt-2" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active"
+                                   id="tab-home-link"
+                                   data-toggle="tab"
+                                   href="#tab_home"
+                                   role="tab"
+                                   aria-controls="tab_home"
+                                   aria-selected="true">
+                                    <i class="fas fa-home mr-1"></i>Workspace
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div id="workspaceContent"
+                             class="tab-content border-top bg-white rounded-bottom spk-workspace-content">
+                            <div class="tab-pane fade show active p-3"
+                                 id="tab_home"
+                                 role="tabpanel"
+                                 aria-labelledby="tab-home-link">
+
+                                <div class="spk-workspace-home text-muted">
+                                    <i class="fas fa-info-circle mr-2"></i>
+                                    Abra módulos pelo menu lateral: cada clique vira uma aba independente.
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+        </section>
 
-          </div>
-        </div>
-      </section>
-      <!-- =================== /WORKSPACE (abas dinâmicas) ===================== -->
-
-      <!-- ✅ Conteúdo NORMAL (Dashboard/Home/etc.) vem aqui -->
-      <section class="content pt-2 px-2" layout:fragment="corpo">
-        <!-- conteúdo da página (fora do iframe) -->
-      </section>
+        <!-- Conteúdo normal das páginas -->
+        <section class="content pt-0 px-2" layout:fragment="corpo">
+            <div class="container-fluid px-0">
+                <!-- conteúdo da página -->
+            </div>
+        </section>
 
     </div>
 
     <!-- Footer -->
     <div th:replace="~{fragments/footer :: rodape}"></div>
-  </div>
+</div>
 
-  <!-- Scripts básicos -->
-  <script th:src="@{/plugins/jquery/jquery.min.js}"></script>
-  <script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
-  <script th:src="@{/dist/js/adminlte.min.js}"></script>
+<!-- CSS padrão master SPK -->
+<link rel="stylesheet" th:href="@{/css/spk-padrao.css}">
 
-  <!-- Workspace JS -->
-  <script th:src="@{/js/workspace.js}"></script>
+<!-- DataTables CSS -->
+<link rel="stylesheet" th:href="@{/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css}">
+<link rel="stylesheet" th:href="@{/plugins/datatables-responsive/css/responsive.bootstrap4.min.css}">
+<link rel="stylesheet" th:href="@{/plugins/datatables-buttons/css/buttons.bootstrap4.min.css}">
+
+<!-- Scripts básicos -->
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/dist/js/adminlte.min.js}"></script>
+
+<!-- SweetAlert2 -->
+<script th:src="@{/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
+
+<!-- DataTables JS -->
+<script th:src="@{/plugins/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js}"></script>
+<script th:src="@{/plugins/datatables-responsive/js/dataTables.responsive.min.js}"></script>
+<script th:src="@{/plugins/datatables-responsive/js/responsive.bootstrap4.min.js}"></script>
+
+<!-- Buttons -->
+<script th:src="@{/plugins/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+<script th:src="@{/plugins/datatables-buttons/js/buttons.bootstrap4.min.js}"></script>
+<script th:src="@{/plugins/jszip/jszip.min.js}"></script>
+<script th:src="@{/plugins/pdfmake/pdfmake.min.js}"></script>
+<script th:src="@{/plugins/pdfmake/vfs_fonts.js}"></script>
+<script th:src="@{/plugins/datatables-buttons/js/buttons.html5.min.js}"></script>
+<script th:src="@{/plugins/datatables-buttons/js/buttons.print.min.js}"></script>
+<script th:src="@{/plugins/datatables-buttons/js/buttons.colVis.min.js}"></script>
+
+<!-- Configuração padrão DataTables SPK -->
+<script th:src="@{/js/datatable/datatable-config.js}"></script>
+
+<!-- Alertas globais SPK -->
+<script th:src="@{/js/spk-alertas.js}"></script>
+
+<!-- Workspace JS -->
+<script th:src="@{/js/workspace.js}"></script>
+
 </body>
 </html>

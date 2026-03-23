@@ -5,8 +5,8 @@
       layout:decorate="~{layout-iframe}">
 
 <head>
-    <title th:text="${usuario.id != null} ? 'Editar Usuário | SPK Sistema' : 'Cadastro de Usuário | SPK Sistema'">
-        Cadastro de Usuário | SPK Sistema
+    <title th:text="${usuario.id != null} ? 'Editar Usuário | SPK Sistemas' : 'Cadastro de Usuário | SPK Sistemas'">
+        Cadastro de Usuário | SPK Sistemas
     </title>
 </head>
 
@@ -14,105 +14,187 @@
 <div layout:fragment="corpo">
 
     <section class="content">
-        <div class="card card-outline card-primary">
-            <div class="card-header">
-                <h3 class="card-title mb-0">
-                    <i class="fas fa-user mr-2"></i>
+        <div class="container-fluid px-0">
+
+            <div class="spk-page-title mb-3">
+                <h3>
+                    <i class="fas fa-user mr-2 text-primary"></i>
                     <span th:text="${usuario.id != null} ? 'Editar Usuário' : 'Cadastro de Usuário'">Cadastro de Usuário</span>
                 </h3>
+                <p th:text="${usuario.id != null}
+                           ? 'Atualize os dados cadastrais, perfis e situação do usuário.'
+                           : 'Informe os dados para criar um novo usuário no sistema.'">
+                    Informe os dados para criar um novo usuário no sistema.
+                </p>
             </div>
 
-            <div class="card-body">
-                <form th:action="@{/usuarios/salvar}" th:object="${usuario}" method="post">
+            <div class="card card-outline card-primary spk-shadow-sm">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-id-card mr-2"></i>
+                        <span th:text="${usuario.id != null} ? 'Dados do Usuário' : 'Novo Usuário'">Dados do Usuário</span>
+                    </h3>
+                </div>
 
-                    <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
-                        <p class="mb-0" th:each="err : ${#fields.globalErrors()}" th:text="${err}">Erro geral</p>
-                    </div>
+                <div class="card-body">
 
-                    <input type="hidden" th:field="*{id}" />
+                    <form th:action="@{/usuarios/salvar}"
+                          th:object="${usuario}"
+                          method="post"
+                          autocomplete="off">
 
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="nome">Nome</label>
-                            <input th:field="*{nome}" id="nome" class="form-control" required />
-                            <div class="text-danger small" th:errors="*{nome}"></div>
+                        <div th:if="${msgErro != null}" class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>
+                            <span th:text="${msgErro}">Corrija os erros do formulário.</span>
                         </div>
 
-                        <div class="form-group col-md-3">
-                            <label for="username">Login</label>
-                            <input th:field="*{username}" id="username" class="form-control" required />
-                            <div class="text-danger small" th:errors="*{username}"></div>
+                        <input type="hidden" th:field="*{id}"/>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nome">Nome</label>
+                                    <input type="text"
+                                           id="nome"
+                                           th:field="*{nome}"
+                                           class="form-control"
+                                           th:classappend="${#fields.hasErrors('nome')} ? ' is-invalid' : ''"
+                                           placeholder="Informe o nome completo"
+                                           maxlength="120"
+                                           required>
+                                    <div class="invalid-feedback" th:errors="*{nome}"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="username">Login</label>
+                                    <input type="text"
+                                           id="username"
+                                           th:field="*{username}"
+                                           class="form-control"
+                                           th:classappend="${#fields.hasErrors('username')} ? ' is-invalid' : ''"
+                                           placeholder="Informe o login"
+                                           maxlength="60"
+                                           required>
+                                    <div class="invalid-feedback" th:errors="*{username}"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="email">E-mail</label>
+                                    <input type="email"
+                                           id="email"
+                                           th:field="*{email}"
+                                           class="form-control"
+                                           th:classappend="${#fields.hasErrors('email')} ? ' is-invalid' : ''"
+                                           placeholder="usuario@email.com"
+                                           maxlength="120"
+                                           required>
+                                    <div class="invalid-feedback" th:errors="*{email}"></div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group col-md-3">
-                            <label for="email">Email</label>
-                            <input th:field="*{email}" id="email" type="email" class="form-control" required />
-                            <div class="text-danger small" th:errors="*{email}"></div>
-                        </div>
-                    </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="dataExpiracao">Data de Expiração</label>
+                                    <input type="date"
+                                           id="dataExpiracao"
+                                           th:field="*{dataExpiracao}"
+                                           class="form-control"
+                                           th:classappend="${#fields.hasErrors('dataExpiracao')} ? ' is-invalid' : ''">
+                                    <div class="invalid-feedback" th:errors="*{dataExpiracao}"></div>
+                                </div>
+                            </div>
 
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="dataExpiracao">Data de Expiração</label>
-                            <input type="date"
-                                   class="form-control"
-                                   id="dataExpiracao"
-                                   th:field="*{dataExpiracao}">
-                            <div class="text-danger small" th:errors="*{dataExpiracao}"></div>
-                        </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="dataAtivacaoVisual">Data de Ativação</label>
+                                    <input type="text"
+                                           id="dataAtivacaoVisual"
+                                           class="form-control"
+                                           th:value="${usuario.dataAtivacao != null ? #temporals.format(usuario.dataAtivacao, 'dd/MM/yyyy') : '-'}"
+                                           readonly>
+                                </div>
+                            </div>
 
-                        <div class="form-group col-md-4">
-                            <label>Data de Ativação</label>
-                            <input type="text"
-                                   class="form-control"
-                                   th:value="${usuario.dataAtivacao != null ? #temporals.format(usuario.dataAtivacao, 'dd/MM/yyyy') : '-'}"
-                                   readonly>
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <label>Data de Desativação</label>
-                            <input type="text"
-                                   class="form-control"
-                                   th:value="${usuario.dataDesativacao != null ? #temporals.format(usuario.dataDesativacao, 'dd/MM/yyyy') : '-'}"
-                                   readonly>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-8">
-                            <label for="roles">Perfis</label>
-                            <select id="roles" th:field="*{roles}" multiple class="form-control">
-                                <option th:each="role : ${todosRoles}"
-                                        th:value="${role.id}"
-                                        th:text="${role.nome}">
-                                </option>
-                            </select>
-                            <small class="form-text text-muted">
-                                Segure Ctrl + clique do mouse para selecionar múltiplos perfis.
-                            </small>
-                            <div class="text-danger small" th:errors="*{roles}"></div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="dataDesativacaoVisual">Data de Desativação</label>
+                                    <input type="text"
+                                           id="dataDesativacaoVisual"
+                                           class="form-control"
+                                           th:value="${usuario.dataDesativacao != null ? #temporals.format(usuario.dataDesativacao, 'dd/MM/yyyy') : '-'}"
+                                           readonly>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group col-md-4">
-                            <label for="ativo">Status</label>
-                            <select id="ativo" th:field="*{ativo}" class="form-control">
-                                <option th:value="true">Ativo</option>
-                                <option th:value="false">Inativo</option>
-                            </select>
-                            <div class="text-danger small" th:errors="*{ativo}"></div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="roleIds">Perfis</label>
+                                    <select id="roleIds"
+                                            name="roleIds"
+                                            class="form-control"
+                                            multiple>
+                                        <option th:each="role : ${todosRoles}"
+                                                th:value="${role.id}"
+                                                th:text="${role.nome}"
+                                                th:selected="${roleIdsSelecionados != null and #lists.contains(roleIdsSelecionados, role.id)}">
+                                            ROLE_USER
+                                        </option>
+                                    </select>
+                                    <small class="form-text text-muted">
+                                        Use Ctrl + clique para selecionar múltiplos perfis.
+                                    </small>
+                                    <div class="text-danger small"
+                                         th:if="${#fields.hasErrors('roles')}"
+                                         th:errors="*{roles}"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="ativo">Status</label>
+                                    <select id="ativo"
+                                            th:field="*{ativo}"
+                                            class="form-control"
+                                            th:classappend="${#fields.hasErrors('ativo')} ? ' is-invalid' : ''">
+                                        <option th:value="true">Ativo</option>
+                                        <option th:value="false">Inativo</option>
+                                    </select>
+                                    <div class="invalid-feedback" th:errors="*{ativo}"></div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="d-flex justify-content-between mt-3">
-                        <a class="btn btn-secondary" th:href="@{/usuarios}">
-                            <i class="fas fa-arrow-left mr-1"></i> Voltar
-                        </a>
+                        <div class="alert alert-light border">
+                            <i class="fas fa-info-circle mr-2 text-primary"></i>
+                            <span th:if="${usuario.id == null}">
+                                O novo usuário será criado com senha inicial padrão e poderá alterá-la depois.
+                            </span>
+                            <span th:if="${usuario.id != null}">
+                                A senha do usuário deve ser alterada pela funcionalidade específica de alteração de senha.
+                            </span>
+                        </div>
 
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save mr-1"></i> Salvar
-                        </button>
-                    </div>
-                </form>
+                        <div class="spk-form-actions">
+                            <a class="btn btn-outline-secondary" th:href="@{/usuarios}">
+                                <i class="fas fa-arrow-left mr-1"></i>Voltar
+                            </a>
+
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save mr-1"></i>
+                                <span th:text="${usuario.id != null} ? 'Salvar Alterações' : 'Salvar Usuário'">Salvar</span>
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
             </div>
         </div>
     </section>

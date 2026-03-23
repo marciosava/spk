@@ -13,14 +13,12 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request, 
-	                                    HttpServletResponse response,
-	                                    Authentication authentication) 
-	                                    throws IOException, ServletException {
+    @Override
+    public void onAuthenticationSuccess(HttpServletRequest request,
+                                        HttpServletResponse response,
+                                        Authentication authentication)
+            throws IOException, ServletException {
 
-	    // Redireciona todos os usuários autenticados para /menu
-	    response.sendRedirect(request.getContextPath() + "/menu");
-	}
-
+        response.sendRedirect(request.getContextPath() + "/dashboard");
+    }
 }

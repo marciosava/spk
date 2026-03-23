@@ -1,17 +1,26 @@
-/* ========= Workspace Manager (tabs + iframes) ========= */
+/* ========= Workspace Manager SPK (tabs + iframes) ========= */
 /*
-  v2.2 — 2025-10-06
-  Alterações:
-  ✅ URLs absolutas (corrige erro "localhost se recusou a se conectar")
-  ✅ Isolamento seguro do iframe (referrerpolicy e sandbox)
-  ✅ Altura automática robusta
-  ✅ Proteção contra múltiplas tabs idênticas
-  ✅ Recarregar/Fechar 100% seguros
+  Padrão SPK - versão revisada
+  Recursos:
+  ✅ Abas dinâmicas com iframe
+  ✅ Evita abas duplicadas
+  ✅ Recarregar / fechar aba com segurança
+  ✅ Altura automática responsiva
+  ✅ URL absoluta confiável
+  ✅ Integração com layout SPK
 */
 
 (function () {
+  'use strict';
 
-  /* --- Utilitário: hash estável da URL para ID da aba --- */
+  const SELECTORS = {
+    tabs: '#workspaceTabs',
+    content: '#workspaceContent',
+    homeTabLink: '#tab-home-link',
+    homePane: '#tab_home',
+    frames: 'iframe.workspace-frame'
+  };
+
   function hash(str) {
     let h = 0;
     for (let i = 0; i < str.length; i++) {
@@ -21,138 +30,212 @@
     return 'tab_' + Math.abs(h);
   }
 
-  /* --- Ajuste dinâmico da altura dos iframes --- */
-  function adjustIframesHeight() {
-    const $content = $('#workspaceContent');
+  function toAbsoluteUrl(url) {
+    if (!url) return null;
+    try {
+      return new URL(url, window.location.origin).toString();
+    } catch (e) {
+      return window.location.origin + (url.startsWith('/') ? url : '/' + url);
+    }
+  }
+
+  function getWorkspaceHeight() {
+    const $content = $(SELECTORS.content);
+    if (!$content.length) return 500;
+
     const offset = $content.offset();
     const top = offset ? offset.top : 0;
-    const vh = window.innerHeight || document.documentElement.clientHeight;
-    const h = Math.max(300, vh - top - 20); // mínimo 300px
-    $('#workspaceContent iframe.workspace-frame').each(function () {
-      this.style.height = h + 'px';
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 800;
+
+    return Math.max(380, viewportHeight - top - 24);
+  }
+
+  function adjustIframesHeight() {
+    const height = getWorkspaceHeight();
+    $(`${SELECTORS.content} ${SELECTORS.frames}`).each(function () {
+      this.style.height = `${height}px`;
     });
   }
 
-  /* --- Cria ou ativa uma aba no workspace --- */
-  function openInWorkspace(url, title, icon) {
-    if (!url) return;
-
-    /* --- Garante URL absoluta (http://localhost:8080/usuarios ...) --- */
-    let fullUrl;
-    try {
-      fullUrl = new URL(url, window.location.origin).toString();
-    } catch (e) {
-      fullUrl = window.location.origin + (url.startsWith('/') ? url : '/' + url);
+  function activateHomeTab() {
+    const $home = $(SELECTORS.homeTabLink);
+    if ($home.length) {
+      $home.tab('show');
+      updateDocumentTitle('Workspace');
     }
+  }
 
-    const tabId = hash(fullUrl);
-    const $tabs = $('#workspaceTabs');
-    const $content = $('#workspaceContent');
-
-    /* --- Evita duplicar abas --- */
-    const existing = $tabs.find(`a[href="#${tabId}"]`);
-    if (existing.length) {
-      existing.tab('show');
-      adjustIframesHeight();
+  function updateDocumentTitle(tabTitle) {
+    const baseTitle = 'SPK Sistemas';
+    if (!tabTitle || tabTitle.trim() === '' || tabTitle === 'Workspace') {
+      document.title = baseTitle;
       return;
     }
+    document.title = `${tabTitle} | ${baseTitle}`;
+  }
 
-    /* --- Título e ícone padrão --- */
-    if (!title) {
-      try {
-        const u = new URL(fullUrl);
-        title = (u.pathname || '/').replace(/\/+/g, ' ').trim() || 'Aba';
-      } catch {
-        title = 'Aba';
-      }
-    }
-    icon = icon || 'fas fa-window-maximize';
-
-    /* --- Cria aba (li/nav-link) --- */
-    const $li = $(`
-      <li class="nav-item" data-tab-url="${fullUrl}">
-        <a class="nav-link" data-toggle="tab" href="#${tabId}" role="tab" aria-controls="${tabId}">
+  function buildTabMarkup(tabId, fullUrl, title, icon) {
+    return $(`
+      <li class="nav-item spk-workspace-tab" data-tab-url="${fullUrl}" data-tab-id="${tabId}">
+        <a class="nav-link" data-toggle="tab" href="#${tabId}" role="tab" aria-controls="${tabId}" aria-selected="false">
           <i class="${icon} mr-1"></i>
           <span class="tab-title">${title}</span>
-          <button type="button" class="btn btn-sm btn-link px-1 ml-1 text-muted reload-tab" title="Recarregar">
+          <button type="button" class="btn btn-sm btn-link px-1 ml-1 text-muted reload-tab" title="Recarregar aba">
             <i class="fas fa-sync-alt"></i>
           </button>
-          <button type="button" class="btn btn-sm btn-link px-1 text-muted close-tab" title="Fechar">
+          <button type="button" class="btn btn-sm btn-link px-1 text-muted close-tab" title="Fechar aba">
             <i class="fas fa-times"></i>
           </button>
         </a>
       </li>
     `);
+  }
 
-    /* --- Cria conteúdo (iframe seguro) --- */
-    const $pane = $(`
-      <div class="tab-pane fade" id="${tabId}" role="tabpanel" aria-labelledby="${tabId}-tab">
+  function buildPaneMarkup(tabId, fullUrl, title) {
+    return $(`
+      <div class="tab-pane fade spk-workspace-pane" id="${tabId}" role="tabpanel" aria-label="${title}">
         <div class="p-0">
           <iframe class="workspace-frame border-0 w-100"
                   src="${fullUrl}"
                   loading="lazy"
                   referrerpolicy="no-referrer-when-downgrade"
-                  sandbox="allow-same-origin allow-forms allow-scripts allow-modals">
+                  sandbox="allow-same-origin allow-forms allow-scripts allow-modals allow-downloads">
           </iframe>
         </div>
       </div>
     `);
+  }
 
-    $tabs.append($li);
+  function getDefaultTitleFromUrl(fullUrl) {
+    try {
+      const parsed = new URL(fullUrl);
+      const path = (parsed.pathname || '').replace(/^\/+|\/+$/g, '');
+      if (!path) return 'Aba';
+      return path
+        .split('/')
+        .filter(Boolean)
+        .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+        .join(' / ');
+    } catch (e) {
+      return 'Aba';
+    }
+  }
+
+  function openInWorkspace(url, title, icon) {
+    if (!url) return;
+
+    const fullUrl = toAbsoluteUrl(url);
+    if (!fullUrl) return;
+
+    const tabId = hash(fullUrl);
+    const $tabs = $(SELECTORS.tabs);
+    const $content = $(SELECTORS.content);
+
+    if (!$tabs.length || !$content.length) {
+      window.location.href = fullUrl;
+      return;
+    }
+
+    const $existingLink = $tabs.find(`a[href="#${tabId}"]`);
+    if ($existingLink.length) {
+      $existingLink.tab('show');
+      updateDocumentTitle(title || $existingLink.find('.tab-title').text().trim());
+      adjustIframesHeight();
+      return;
+    }
+
+    const finalTitle = title || getDefaultTitleFromUrl(fullUrl);
+    const finalIcon = icon || 'fas fa-window-maximize';
+
+    const $tab = buildTabMarkup(tabId, fullUrl, finalTitle, finalIcon);
+    const $pane = buildPaneMarkup(tabId, fullUrl, finalTitle);
+
+    $tabs.append($tab);
     $content.append($pane);
 
-    /* --- Fechar aba --- */
-    $li.find('.close-tab').on('click', function (e) {
+    $tab.find('.close-tab').on('click', function (e) {
       e.preventDefault();
-      const isActive = $li.find('a').hasClass('active');
-      $pane.remove();
-      $li.remove();
+      e.stopPropagation();
 
-      // se era a aba ativa, volta para home
-      if (isActive) {
-        const $last = $tabs.find('a.nav-link').last();
-        ($last.length ? $last : $('#tab-home-link')).tab('show');
+      const wasActive = $tab.find('a.nav-link').hasClass('active');
+
+      $pane.remove();
+      $tab.remove();
+
+      if (wasActive) {
+        const $lastOpenTab = $tabs.find('a.nav-link').last();
+        if ($lastOpenTab.length) {
+          $lastOpenTab.tab('show');
+          const lastTitle = $lastOpenTab.find('.tab-title').text().trim();
+          updateDocumentTitle(lastTitle || 'Workspace');
+        } else {
+          activateHomeTab();
+        }
       }
+
       adjustIframesHeight();
     });
 
-    /* --- Recarregar aba --- */
-    $li.find('.reload-tab').on('click', function (e) {
+    $tab.find('.reload-tab').on('click', function (e) {
       e.preventDefault();
+      e.stopPropagation();
+
       const $frame = $pane.find('iframe.workspace-frame');
-      $frame.attr('src', $frame.attr('src')); // reload seguro
+      const currentSrc = $frame.attr('src');
+      $frame.attr('src', currentSrc);
     });
 
-    /* --- Ativa a aba recém-criada --- */
-    $li.find('a').tab('show');
+    $tab.find('a.nav-link').on('shown.bs.tab', function () {
+      updateDocumentTitle(finalTitle);
+      adjustIframesHeight();
+    });
+
+    $tab.find('a.nav-link').tab('show');
     adjustIframesHeight();
   }
 
-  /* --- Intercepta links com data-workspace --- */
-  $(document).on('click', 'a[data-workspace]', function (e) {
-    if (e.which === 1 && !e.ctrlKey && !e.metaKey) {
+  function bindWorkspaceLinks() {
+    $(document).on('click', 'a[data-workspace]', function (e) {
+      if (e.which !== 1 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) {
+        return;
+      }
+
+      const $link = $(this);
+      const url = $link.attr('href');
+
+      if (!url || url === '#') {
+        return;
+      }
+
       e.preventDefault();
-      const $a = $(this);
-      const url = $a.attr('href');
-      const title = $a.data('title');
-      const icon = $a.data('icon');
+
+      const title = $link.data('title');
+      const icon = $link.data('icon');
+
       openInWorkspace(url, title, icon);
-    }
-  });
+    });
+  }
 
-  /* --- API global --- */
-  window.openInWorkspace = openInWorkspace;
+  function bindHomeTabEvents() {
+    $(document).on('shown.bs.tab', SELECTORS.homeTabLink, function () {
+      updateDocumentTitle('Workspace');
+      adjustIframesHeight();
+    });
+  }
 
-  /* --- Ajusta altura quando redimensiona ou carrega --- */
-  $(window).on('resize', adjustIframesHeight);
-  $(document).ready(adjustIframesHeight);
+  function init() {
+    window.openInWorkspace = openInWorkspace;
 
-  /* --- Modo legado (para páginas antigas com layout:fragment="corpo") --- */
-  $(function () {
-    const $slot = $('#legacy-slot');
-    if ($slot.find('[layout\\:fragment="corpo"]').length > 0) {
-      $slot.show();
-    }
-  });
+    bindWorkspaceLinks();
+    bindHomeTabEvents();
 
+    $(window).on('resize', adjustIframesHeight);
+
+    $(document).ready(function () {
+      adjustIframesHeight();
+      updateDocumentTitle('Workspace');
+    });
+  }
+
+  init();
 })();

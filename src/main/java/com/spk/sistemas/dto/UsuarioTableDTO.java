@@ -7,14 +7,17 @@ import com.spk.sistemas.model.Role;
 import com.spk.sistemas.model.Usuario;
 
 public class UsuarioTableDTO {
+
     private Long id;
     private String nome;
     private String username;
     private String email;
-    private String roles; // String formatada para exibição
+    private String roles;
     private boolean ativo;
-    
-    // Construtor que recebe a entidade Usuario
+
+    public UsuarioTableDTO() {
+    }
+
     public UsuarioTableDTO(Usuario usuario) {
         this.id = usuario.getId();
         this.nome = usuario.getNome();
@@ -23,66 +26,66 @@ public class UsuarioTableDTO {
         this.roles = formatarRoles(usuario.getRoles());
         this.ativo = usuario.isAtivo();
     }
-    
+
     private String formatarRoles(List<Role> list) {
         if (list == null || list.isEmpty()) {
-            return "Nenhum perfil";
+            return "";
         }
+
         return list.stream()
-                   .map(Role::getNome)
-                   .collect(Collectors.joining(", "));
+                .map(Role::getNome)
+                .filter(nomeRole -> nomeRole != null && !nomeRole.trim().isEmpty())
+                .collect(Collectors.joining(", "));
     }
 
-    //-- getters e setters
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getRoles() {
-		return roles;
-	}
+    public String getRoles() {
+        return roles;
+    }
 
-	public void setRoles(String roles) {
-		this.roles = roles;
-	}
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
 
-	public boolean isAtivo() {
-		return ativo;
-	}
+    public boolean isAtivo() {
+        return ativo;
+    }
 
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
-	}
-    
-    //----- Métodos auxiliares -----//
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
     @Override
     public String toString() {
         return "UsuarioTableDTO{" +
@@ -93,6 +96,5 @@ public class UsuarioTableDTO {
                 ", roles='" + roles + '\'' +
                 ", ativo=" + ativo +
                 '}';
-    }	
-	
+    }
 }

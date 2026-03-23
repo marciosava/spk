@@ -10,6 +10,8 @@ import com.spk.sistemas.model.Usuario;
 
 public class UsuarioDetails implements UserDetails {
 
+    private static final long serialVersionUID = 1L;
+
     private final Usuario usuario;
 
     public UsuarioDetails(Usuario usuario) {
@@ -31,33 +33,28 @@ public class UsuarioDetails implements UserDetails {
         return usuario.getUsername();
     }
 
-    /**
-     * Retorna false se a data de expiração for anterior a hoje.
-     */
     @Override
     public boolean isAccountNonExpired() {
-        // Se não houver data de expiração, considera não expirada
-        if (usuario.getDataExpiracao() == null) return true;
+        if (usuario.getDataExpiracao() == null) {
+            return true;
+        }
 
         return !usuario.getDataExpiracao().isBefore(LocalDate.now());
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true; // Pode implementar lógica futura se desejar
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true; // Pode ser ajustado no futuro (ex: troca periódica de senha)
+        return true;
     }
 
-    /**
-     * Retorna false se o usuário estiver inativo.
-     */
     @Override
     public boolean isEnabled() {
-        return usuario.isAtivo();
+        return Boolean.TRUE.equals(usuario.getAtivo());
     }
 
     public Usuario getUsuario() {

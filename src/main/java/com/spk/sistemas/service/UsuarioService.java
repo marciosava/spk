@@ -49,6 +49,38 @@ public class UsuarioService {
         return usuarioRepository.existsByEmail(email);
     }
 
+    public boolean usernameJaEmUso(String username, Long idIgnorar) {
+        if (username == null || username.trim().isEmpty()) {
+            return false;
+        }
+
+        String usernameNormalizado = username.trim();
+
+        return usuarioRepository.findAll()
+                .stream()
+                .anyMatch(u ->
+                        u.getUsername() != null
+                                && u.getUsername().trim().equalsIgnoreCase(usernameNormalizado)
+                                && (idIgnorar == null || !idIgnorar.equals(u.getId()))
+                );
+    }
+
+    public boolean emailJaEmUso(String email, Long idIgnorar) {
+        if (email == null || email.trim().isEmpty()) {
+            return false;
+        }
+
+        String emailNormalizado = email.trim();
+
+        return usuarioRepository.findAll()
+                .stream()
+                .anyMatch(u ->
+                        u.getEmail() != null
+                                && u.getEmail().trim().equalsIgnoreCase(emailNormalizado)
+                                && (idIgnorar == null || !idIgnorar.equals(u.getId()))
+                );
+    }
+
     // =========================================================
     // SALVAR
     // =========================================================
@@ -58,17 +90,25 @@ public class UsuarioService {
         if (usuario.getId() == null) {
             return salvarNovoUsuario(usuario);
         }
-
         return atualizarUsuarioExistente(usuario);
     }
 
     private Usuario salvarNovoUsuario(Usuario usuario) {
-        if (usuario.getDataAtivacao() == null && usuario.isAtivo()) {
-            usuario.setDataAtivacao(LocalDate.now());
+        normalizarCampos(usuario);
+
+        if (usuario.getRoles() == null) {
+            usuario.setRoles(new ArrayList<>());
         }
 
-        if (!usuario.isAtivo() && usuario.getDataDesativacao() == null) {
-            usuario.setDataDesativacao(LocalDate.now());
+        if (usuario.isAtivo()) {
+            if (usuario.getDataAtivacao() == null) {
+                usuario.setDataAtivacao(LocalDate.now());
+            }
+            usuario.setDataDesativacao(null);
+        } else {
+            if (usuario.getDataDesativacao() == null) {
+                usuario.setDataDesativacao(LocalDate.now());
+            }
         }
 
         return usuarioRepository.save(usuario);
@@ -78,26 +118,30 @@ public class UsuarioService {
         Usuario existente = usuarioRepository.findById(usuario.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado."));
 
-        boolean statusAlterado = existente.isAtivo() != usuario.isAtivo();
+        boolean statusAnterior = existente.isAtivo();
+        boolean statusNovo = usuario.isAtivo();
 
-        existente.setNome(usuario.getNome());
-        existente.setUsername(usuario.getUsername());
-        existente.setEmail(usuario.getEmail());
-        existente.setCpf(usuario.getCpf());
+        existente.setNome(trim(usuario.getNome()));
+        existente.setUsername(trim(usuario.getUsername()));
+        existente.setEmail(trim(usuario.getEmail()));
+        existente.setCpf(trim(usuario.getCpf()));
         existente.setDataNascimento(usuario.getDataNascimento());
         existente.setDataExpiracao(usuario.getDataExpiracao());
-        existente.setRoles(usuario.getRoles());
-        existente.setAtivo(usuario.isAtivo());
+        existente.setAtivo(statusNovo);
 
-        // Preserva senha atual se já existir
-        if (usuario.getPassword() != null && !usuario.getPassword().isBlank()) {
+        if (usuario.getRoles() != null) {
+            existente.setRoles(new ArrayList<>(usuario.getRoles()));
+        } else {
+            existente.setRoles(new ArrayList<>());
+        }
+
+        if (usuario.getPassword() != null && !usuario.getPassword().trim().isEmpty()) {
             existente.setPassword(usuario.getPassword());
         }
 
-        if (statusAlterado) {
-            if (usuario.isAtivo()) {
+        if (statusAnterior != statusNovo) {
+            if (statusNovo) {
                 existente.setDataDesativacao(null);
-
                 if (existente.getDataAtivacao() == null) {
                     existente.setDataAtivacao(LocalDate.now());
                 }
@@ -107,6 +151,17 @@ public class UsuarioService {
         }
 
         return usuarioRepository.save(existente);
+    }
+
+    private void normalizarCampos(Usuario usuario) {
+        usuario.setNome(trim(usuario.getNome()));
+        usuario.setUsername(trim(usuario.getUsername()));
+        usuario.setEmail(trim(usuario.getEmail()));
+        usuario.setCpf(trim(usuario.getCpf()));
+    }
+
+    private String trim(String valor) {
+        return valor == null ? null : valor.trim();
     }
 
     // =========================================================
@@ -134,7 +189,6 @@ public class UsuarioService {
 
         if (usuario.isAtivo()) {
             usuario.setDataDesativacao(null);
-
             if (usuario.getDataAtivacao() == null) {
                 usuario.setDataAtivacao(LocalDate.now());
             }
@@ -153,6 +207,8 @@ public class UsuarioService {
     public Map<String, Object> listarTodosParaDataTables(int draw,
                                                          int start,
                                                          int length,
+                                                         String nome,
+                                                         Boolean ativo,
                                                          String searchValue,
                                                          Integer orderColumn,
                                                          String orderDir) {
@@ -164,11 +220,10 @@ public class UsuarioService {
 
         int recordsTotal = todos.size();
 
-        List<UsuarioTableDTO> filtrados = filtrarUsuarios(todos, searchValue);
+        List<UsuarioTableDTO> filtrados = aplicarFiltros(todos, nome, ativo, searchValue);
         ordenarUsuarios(filtrados, orderColumn, orderDir);
 
         int recordsFiltered = filtrados.size();
-
         List<UsuarioTableDTO> paginados = paginarUsuarios(filtrados, start, length);
 
         Map<String, Object> response = new HashMap<>();
@@ -180,23 +235,50 @@ public class UsuarioService {
         return response;
     }
 
-    private List<UsuarioTableDTO> filtrarUsuarios(List<UsuarioTableDTO> usuarios, String searchValue) {
-        if (searchValue == null || searchValue.isBlank()) {
-            return new ArrayList<>(usuarios);
+    private List<UsuarioTableDTO> aplicarFiltros(List<UsuarioTableDTO> usuarios,
+                                                 String nome,
+                                                 Boolean ativo,
+                                                 String searchValue) {
+
+        return usuarios.stream()
+                .filter(u -> filtrarPorNome(u, nome))
+                .filter(u -> filtrarPorAtivo(u, ativo))
+                .filter(u -> filtrarPorPesquisaGlobal(u, searchValue))
+                .collect(Collectors.toList());
+    }
+
+    private boolean filtrarPorNome(UsuarioTableDTO usuario, String nome) {
+        if (nome == null || nome.trim().isEmpty()) {
+            return true;
+        }
+
+        String filtro = nome.trim().toLowerCase();
+
+        return contem(usuario.getNome(), filtro)
+                || contem(usuario.getUsername(), filtro)
+                || contem(usuario.getEmail(), filtro);
+    }
+
+    private boolean filtrarPorAtivo(UsuarioTableDTO usuario, Boolean ativo) {
+        if (ativo == null) {
+            return true;
+        }
+        return usuario.isAtivo() == ativo;
+    }
+
+    private boolean filtrarPorPesquisaGlobal(UsuarioTableDTO usuario, String searchValue) {
+        if (searchValue == null || searchValue.trim().isEmpty()) {
+            return true;
         }
 
         String filtro = searchValue.trim().toLowerCase();
 
-        return usuarios.stream()
-                .filter(u ->
-                        contem(u.getId(), filtro)
-                        || contem(u.getNome(), filtro)
-                        || contem(u.getUsername(), filtro)
-                        || contem(u.getEmail(), filtro)
-                        || contem(u.isAtivo() ? "ativo" : "inativo", filtro)
-                        || contem(u.getRoles(), filtro)
-                )
-                .collect(Collectors.toList());
+        return contem(usuario.getId(), filtro)
+                || contem(usuario.getNome(), filtro)
+                || contem(usuario.getUsername(), filtro)
+                || contem(usuario.getEmail(), filtro)
+                || contem(usuario.isAtivo() ? "ativo" : "inativo", filtro)
+                || contem(usuario.getRoles(), filtro);
     }
 
     private void ordenarUsuarios(List<UsuarioTableDTO> usuarios, Integer orderColumn, String orderDir) {

@@ -1,20 +1,50 @@
-<!-- fragments/sidebar.html -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4" th:fragment="nav-sidebar">
-    <!-- Logo / nome do sistema -->
-    <a th:href="@{/dashboard}" class="brand-link">
-        <span class="brand-text font-weight-light">SPk Sistema</span>
+<!-- templates/fragments/sidebar.html -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4 spk-sidebar" th:fragment="nav-sidebar">
+
+	<!-- ver isto mais tarde, compilacao -->
+    <!-- th:classappend="${uri == '/dashboard'} ? ' active' : ''" -->
+
+    <!-- Brand -->
+    <a th:href="@{/dashboard}" class="brand-link spk-brand">
+        <img th:src="@{/images/favicon.png}"
+             alt="SPK Logo"
+             class="brand-image img-circle elevation-3"
+             style="opacity: .95">
+        <span class="brand-text font-weight-light">SPK Sistemas</span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Menu de navegação -->
+
+        <!-- Painel resumido do usuário -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center">
+            <div class="image">
+                <img th:src="@{/images/spk-logo.ico}"
+                     class="img-circle elevation-2"
+                     alt="Usuário">
+            </div>
+            <div class="info">
+                <a href="#" class="d-block" th:text="${#authentication.name}">Administrador</a>
+                <small class="text-light d-block mt-1">
+                    <span th:switch="${#authentication.authorities[0].authority}">
+                        <span th:case="'ROLE_ADMIN'">Perfil: Administrador</span>
+                        <span th:case="'ROLE_USER'">Perfil: Usuário</span>
+                        <span th:case="*">Perfil: Sistema</span>
+                    </span>
+                </small>
+            </div>
+        </div>
+
+        <!-- Navegação -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column"
+            <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent"
                 data-widget="treeview"
                 role="menu"
                 data-accordion="false">
 
-                <!-- Dashboard (NAVEGA normal, fora do workspace) -->
+                <!-- Grupo principal -->
+                <li class="nav-header">PRINCIPAL</li>
+
                 <li class="nav-item">
                     <a th:href="@{/dashboard}" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -22,7 +52,9 @@
                     </a>
                 </li>
 
-                <!-- Usuários (abre no Workspace) -->
+                <!-- Grupo administração -->
+                <li class="nav-header">ADMINISTRAÇÃO</li>
+
                 <li class="nav-item">
                     <a th:href="@{/usuarios}" class="nav-link"
                        data-workspace
@@ -33,7 +65,6 @@
                     </a>
                 </li>
 
-                <!-- Configurações (submenu) -->
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-cogs"></i>
@@ -42,9 +73,9 @@
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
+
                     <ul class="nav nav-treeview">
 
-                        <!-- Parâmetros (abre no Workspace) -->
                         <li class="nav-item">
                             <a th:href="@{/parametros}" class="nav-link"
                                data-workspace
@@ -55,7 +86,6 @@
                             </a>
                         </li>
 
-                        <!-- Logs (abre no Workspace) -->
                         <li class="nav-item">
                             <a th:href="@{/logs}" class="nav-link"
                                data-workspace
@@ -65,10 +95,13 @@
                                 <p>Logs do Sistema</p>
                             </a>
                         </li>
+
                     </ul>
                 </li>
 
-                <!-- Sobre (abre no Workspace) -->
+                <!-- Grupo sistema -->
+                <li class="nav-header">SISTEMA</li>
+
                 <li class="nav-item">
                     <a th:href="@{/sobre}" class="nav-link"
                        data-workspace
@@ -81,7 +114,5 @@
 
             </ul>
         </nav>
-        <!-- /.sidebar-menu -->
     </div>
-    <!-- /.sidebar -->
 </aside>

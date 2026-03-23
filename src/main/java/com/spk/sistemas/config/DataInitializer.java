@@ -1,5 +1,6 @@
 package com.spk.sistemas.config;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.boot.ApplicationRunner;
@@ -16,43 +17,44 @@ import com.spk.sistemas.repository.UsuarioRepository;
 public class DataInitializer {
 
     @Bean
-    public ApplicationRunner initializer(
-            UsuarioRepository usuarioRepository,
-            RoleRepository roleRepository,
-            PasswordEncoder passwordEncoder) {
-    	
+    public ApplicationRunner initializer(UsuarioRepository usuarioRepository,
+                                         RoleRepository roleRepository,
+                                         PasswordEncoder passwordEncoder) {
+
         return args -> {
-            if (usuarioRepository.count() == 0) {
+            Role roleAdmin = roleRepository.findByNome("ROLE_ADMIN")
+                    .orElseGet(() -> roleRepository.save(new Role("ROLE_ADMIN")));
 
-                // Cria ROLE_ADMIN se não existir
-                Role roleAdmin = roleRepository.findByNome("ROLE_ADMIN")
-                        .orElseGet(() -> roleRepository.save(new Role("ROLE_ADMIN")));
+            Role roleUser = roleRepository.findByNome("ROLE_USER")
+                    .orElseGet(() -> roleRepository.save(new Role("ROLE_USER")));
 
-                // Cria ROLE_USER se não existir
-                Role roleUser = roleRepository.findByNome("ROLE_USER")
-                        .orElseGet(() -> roleRepository.save(new Role("ROLE_USER")));
-
-                // Cria usuário administrador
+            if (!usuarioRepository.existsByUsername("admin")) {
                 Usuario admin = new Usuario();
                 admin.setNome("Administrador");
                 admin.setUsername("admin");
                 admin.setEmail("admin@email.com");
                 admin.setPassword(passwordEncoder.encode("admin123"));
                 admin.setAtivo(true);
+                admin.setDataAtivacao(LocalDate.now());
                 admin.setRoles(List.of(roleAdmin));
+
                 usuarioRepository.save(admin);
 
-                // Cria usuário comum
+                System.out.println("✅ Usuário ADMIN criado: login 'admin' / senha 'admin123'");
+            }
+
+            if (!usuarioRepository.existsByUsername("user")) {
                 Usuario user = new Usuario();
                 user.setNome("Usuário Padrão");
                 user.setUsername("user");
                 user.setEmail("user@email.com");
                 user.setPassword(passwordEncoder.encode("user123"));
                 user.setAtivo(true);
+                user.setDataAtivacao(LocalDate.now());
                 user.setRoles(List.of(roleUser));
+
                 usuarioRepository.save(user);
 
-                System.out.println("✅ Usuário ADMIN criado: login 'admin' / senha 'admin123'");
                 System.out.println("✅ Usuário USER criado: login 'user' / senha 'user123'");
             }
         };

@@ -1,30 +1,91 @@
 <!-- templates/fragments/head.html -->
 <head th:fragment="head(titulo)">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Título vindo do layout (~{::title}) com fallback -->
-<title th:if="${titulo != null}" th:replace="${titulo}">SPK</title>
-<title th:if="${titulo == null}">SPK</title>
+    <!-- ========================= -->
+    <!-- META -->
+    <!-- ========================= -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- CSRF: usa a variável _csrf diretamente (sem #request) -->
-<meta th:if="${_csrf != null}" name="_csrf" th:content="${_csrf.token}" />
-<meta th:if="${_csrf != null}" name="_csrf_header"
-	th:content="${_csrf.headerName}" />
+    <!-- ========================= -->
+    <!-- TITLE -->
+    <!-- ========================= -->
+    <title th:if="${titulo != null}" th:replace="${titulo}">SPK Sistemas</title>
+    <title th:if="${titulo == null}">SPK Sistemas</title>
 
-<!-- CSS base -->
-<link rel="stylesheet"
-	th:href="@{/plugins/fontawesome-free/css/all.min.css}">
-<link rel="stylesheet" th:href="@{/dist/css/adminlte.min.css}">
+    <!-- ========================= -->
+    <!-- CSRF -->
+    <!-- ========================= -->
+    <meta th:if="${_csrf != null}" name="_csrf" th:content="${_csrf.token}" />
+    <meta th:if="${_csrf != null}" name="_csrf_header" th:content="${_csrf.headerName}" />
 
-<!-- SweetAlert2 (local) -->
-<script defer th:src="@{/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
+    <!-- ========================= -->
+    <!-- CORE CSS (BASE DO SISTEMA) -->
+    <!-- ========================= -->
+    <link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/dist/css/adminlte.min.css}">
 
-<!-- Outros CSS -->
-<!-- seu CSS global por último - chat-gpt -->
-<!-- Regra de ouro: app.css sempre por último no head — assim qualquer ajuste global (ex.: “todos os botões Salvar azuis claros”) se propaga sem briga de CSS. -->
-<link rel="stylesheet" th:href="@{/css/app.css}">
+    <!-- ========================= -->
+    <!-- CSS PADRÃO SPK (MASTER) -->
+    <!-- ========================= -->
+    <link rel="stylesheet" th:href="@{/css/spk-padrao.css}">
+
+    <!-- ========================= -->
+    <!-- CSS CUSTOM (LEGADO / AJUSTES) -->
+    <!-- ========================= -->
+    <!-- Mantido para compatibilidade -->
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+
+    <!-- ========================= -->
+    <!-- JS ESSENCIAIS (HEAD SAFE) -->
+    <!-- ========================= -->
+
+    <!-- SweetAlert2 -->
+    <script defer th:src="@{/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
+
+</head><!-- templates/fragments/head.html -->
+<head th:fragment="head(titulo)">
+
+    <!-- ========================= -->
+    <!-- META -->
+    <!-- ========================= -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- ========================= -->
+    <!-- TITLE -->
+    <!-- ========================= -->
+    <title th:if="${titulo != null}" th:replace="${titulo}">SPK Sistemas</title>
+    <title th:if="${titulo == null}">SPK Sistemas</title>
+
+    <!-- ========================= -->
+    <!-- CSRF -->
+    <!-- ========================= -->
+    <meta th:if="${_csrf != null}" name="_csrf" th:content="${_csrf.token}" />
+    <meta th:if="${_csrf != null}" name="_csrf_header" th:content="${_csrf.headerName}" />
+
+    <!-- ========================= -->
+    <!-- CORE CSS (BASE DO SISTEMA) -->
+    <!-- ========================= -->
+    <link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/dist/css/adminlte.min.css}">
+
+    <!-- ========================= -->
+    <!-- CSS PADRÃO SPK (MASTER) -->
+    <!-- ========================= -->
+    <link rel="stylesheet" th:href="@{/css/spk-padrao.css}">
+
+    <!-- ========================= -->
+    <!-- CSS CUSTOM (LEGADO / AJUSTES) -->
+    <!-- ========================= -->
+    <!-- Mantido para compatibilidade -->
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+
+    <!-- ========================= -->
+    <!-- JS ESSENCIAIS (HEAD SAFE) -->
+    <!-- ========================= -->
+
+    <!-- SweetAlert2 -->
+    <script defer th:src="@{/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
 
 </head>
-
-

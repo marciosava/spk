@@ -1,63 +1,86 @@
-<!-- fragments/header.html -->
+<!-- templates/fragments/header.html -->
 <div th:fragment="cabecalho">
 
-    <!-- Navbar Principal (AdminLTE) -->
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-        <!-- Left navbar links -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light spk-header">
+
+        <!-- Lado esquerdo -->
         <ul class="navbar-nav">
+            <!-- Botão hamburguer -->
             <li class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                <a class="nav-link spk-navbar-btn"
+                   data-widget="pushmenu"
+                   href="#"
+                   role="button"
+                   title="Expandir/Recolher menu">
                     <i class="fas fa-bars"></i>
                 </a>
             </li>
-            <!-- Logo e Nome do Sistema -->
+
+            <!-- Logo / Nome do sistema -->
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="@{/}" class="nav-link">
-                    <img th:src="@{/images/favicon.png}" width="30" height="30" class="d-inline-block align-top" alt="Logo SPk">
-                    <span class="ml-2 font-weight-bold">SPk Sistema</span>
+                <a th:href="@{/dashboard}" class="nav-link d-flex align-items-center spk-brand-link">
+                    <img th:src="@{/images/favicon.png}"
+                         width="30"
+                         height="30"
+                         class="d-inline-block align-top"
+                         alt="Logo SPK">
+                    <span class="ml-2 font-weight-bold spk-brand-text">SPK Sistemas</span>
                 </a>
             </li>
         </ul>
 
-        <!-- Right navbar links -->
-        <ul class="navbar-nav ml-auto">
-            <!-- User Dropdown Menu -->
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    <div class="d-flex align-items-center">
-                        <!-- Avatar do Usuário -->
-                        <img th:src="@{/images/spk-logo.ico}" class="img-circle elevation-2" alt="User Avatar" width="32" height="32">
-                        <div class="ml-2 d-none d-md-inline">
-                            <span class="d-block" th:text="${#authentication.name}">Admin</span>
-                            <small class="text-muted">
-                                <span th:switch="${#authentication.authorities[0].authority}">
-                                    <span th:case="'ROLE_ADMIN'">Administrador</span>
-                                    <span th:case="'ROLE_USER'">Usuário</span>
-                                    <span th:case="*">Visitante</span>
-                                </span>
-                            </small>
-                        </div>
+        <!-- Lado direito -->
+        <ul class="navbar-nav ml-auto align-items-center">
+
+            <!-- Usuário logado -->
+            <li class="nav-item dropdown user-menu">
+                <a href="#"
+                   class="nav-link dropdown-toggle d-flex align-items-center spk-user-dropdown"
+                   data-toggle="dropdown"
+                   aria-expanded="false">
+
+                    <img th:src="@{/images/spk-logo.ico}"
+                         class="img-circle elevation-2"
+                         alt="Usuário"
+                         width="32"
+                         height="32">
+
+                    <div class="ml-2 d-none d-md-flex flex-column text-left">
+                        <span class="spk-user-name" th:text="${#authentication.name}">Admin</span>
+                        <small class="text-muted spk-user-role">
+                            <span th:switch="${#authentication.authorities[0].authority}">
+                                <span th:case="'ROLE_ADMIN'">Administrador</span>
+                                <span th:case="'ROLE_USER'">Usuário</span>
+                                <span th:case="*">Usuário do Sistema</span>
+                            </span>
+                        </small>
                     </div>
                 </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right spk-user-menu">
+                    <span class="dropdown-item dropdown-header">
+                        Menu do Usuário
+                    </span>
+
                     <div class="dropdown-divider"></div>
+
                     <a th:href="@{/usuarios/alterar-senha}" class="dropdown-item">
                         <i class="fas fa-key mr-2"></i> Alterar Senha
                     </a>
+
                     <div class="dropdown-divider"></div>
-                    <!-- Logout -->
+
                     <form th:action="@{/logout}" method="post" class="d-none" id="logoutForm"></form>
-                    <a href="#" class="dropdown-item" onclick="document.getElementById('logoutForm').submit()">
+
+                    <a href="#"
+                       class="dropdown-item text-danger"
+                       onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
                         <i class="fas fa-sign-out-alt mr-2"></i> Sair
                     </a>
                 </div>
             </li>
-            <!-- Botão Sidebar Toggle (Mobile) -->
-            <li class="nav-item">
-                <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                    <i class="fas fa-th-large"></i>
-                </a>
-            </li>
+
         </ul>
     </nav>
+
 </div>

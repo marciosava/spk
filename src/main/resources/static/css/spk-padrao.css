@@ -1,0 +1,953 @@
+/* =========================================================
+   SPK SISTEMAS - PADRÃO MASTER CSS
+   Base visual oficial do projeto
+   ========================================================= */
+
+/* =========================
+   ROOT / TOKENS
+   ========================= */
+:root {
+    --spk-primary: #2f6fed;
+    --spk-primary-dark: #1f57c3;
+    --spk-primary-light: #eaf1ff;
+
+    --spk-secondary: #6c757d;
+    --spk-success: #198754;
+    --spk-info: #0dcaf0;
+    --spk-warning: #ffc107;
+    --spk-danger: #dc3545;
+
+    --spk-bg: #f4f6f9;
+    --spk-surface: #ffffff;
+    --spk-surface-soft: #f8f9fb;
+    --spk-border: #dee2e6;
+    --spk-border-soft: #e9ecef;
+
+    --spk-text: #343a40;
+    --spk-text-muted: #6c757d;
+    --spk-title: #1f2d3d;
+
+    --spk-radius-sm: .35rem;
+    --spk-radius: .5rem;
+    --spk-radius-lg: .75rem;
+
+    --spk-shadow-sm: 0 2px 6px rgba(0, 0, 0, .06);
+    --spk-shadow: 0 6px 18px rgba(0, 0, 0, .08);
+
+    --spk-header-height: 57px;
+    --spk-sidebar-width: 250px;
+}
+
+/* =========================
+   BASE GLOBAL
+   ========================= */
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background-color: var(--spk-bg);
+    color: var(--spk-text);
+    font-size: 0.95rem;
+}
+
+body,
+.content-wrapper,
+.main-footer,
+.main-header,
+.sidebar {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+a {
+    transition: all .2s ease-in-out;
+}
+
+.content-wrapper {
+    background: var(--spk-bg);
+}
+
+/* =========================
+   HEADER
+   ========================= */
+.spk-header {
+    border-bottom: 1px solid var(--spk-border-soft);
+    box-shadow: var(--spk-shadow-sm);
+    background: #fff;
+}
+
+.spk-navbar-btn {
+    color: var(--spk-text) !important;
+    border-radius: var(--spk-radius);
+}
+
+.spk-navbar-btn:hover {
+    background-color: var(--spk-primary-light);
+    color: var(--spk-primary-dark) !important;
+}
+
+.spk-brand-link {
+    gap: .35rem;
+    color: var(--spk-title) !important;
+}
+
+.spk-brand-link:hover {
+    text-decoration: none;
+}
+
+.spk-brand-text {
+    font-size: 1rem;
+    letter-spacing: .2px;
+}
+
+.spk-user-dropdown {
+    padding-top: .35rem;
+    padding-bottom: .35rem;
+}
+
+.spk-user-name {
+    font-weight: 600;
+    color: var(--spk-title);
+    line-height: 1.1;
+}
+
+.spk-user-role {
+    line-height: 1.1;
+}
+
+.spk-user-menu {
+    border: 1px solid var(--spk-border-soft);
+    border-radius: var(--spk-radius);
+    box-shadow: var(--spk-shadow);
+    min-width: 240px;
+}
+
+/* =========================
+   SIDEBAR
+   ========================= */
+.spk-sidebar {
+    box-shadow: 2px 0 12px rgba(0, 0, 0, .08);
+}
+
+.spk-brand {
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.spk-brand .brand-text {
+    font-weight: 600 !important;
+    letter-spacing: .2px;
+}
+
+.sidebar .user-panel {
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.sidebar .user-panel .info a {
+    font-weight: 600;
+}
+
+.nav-sidebar .nav-header {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, .55);
+    margin-top: .5rem;
+}
+
+.nav-sidebar .nav-link {
+    border-radius: .4rem;
+    margin: .12rem .4rem;
+}
+
+.nav-sidebar .nav-link:hover {
+    background-color: rgba(255, 255, 255, .08);
+}
+
+.nav-sidebar .nav-link.active {
+    background-color: var(--spk-primary) !important;
+    color: #fff !important;
+    box-shadow: 0 3px 8px rgba(47, 111, 237, .35);
+}
+
+.nav-sidebar .nav-treeview > .nav-item > .nav-link {
+    padding-left: 2.3rem;
+    font-size: .93rem;
+}
+
+/* =========================
+   CONTENT WRAPPER
+   ========================= */
+.spk-content-wrapper {
+    min-height: calc(100vh - var(--spk-header-height));
+    padding-bottom: 1rem;
+}
+
+.content-header {
+    padding-bottom: .25rem;
+}
+
+/* =========================
+   TITLES / PAGE HEADER
+   ========================= */
+.spk-page-title h3 {
+    font-weight: 600;
+    color: var(--spk-title);
+    margin-bottom: .25rem;
+}
+
+.spk-page-title p {
+    font-size: .95rem;
+    color: var(--spk-text-muted);
+    margin-bottom: 0;
+}
+
+/* =========================
+   CARDS
+   ========================= */
+.card {
+    border: 1px solid var(--spk-border-soft);
+    border-radius: var(--spk-radius-lg);
+    box-shadow: var(--spk-shadow-sm);
+}
+
+.card.card-outline {
+    border-top-width: 3px;
+}
+
+.card-header {
+    border-bottom: 1px solid var(--spk-border-soft);
+    background-color: #fff;
+    border-top-left-radius: var(--spk-radius-lg);
+    border-top-right-radius: var(--spk-radius-lg);
+}
+
+.card-title {
+    font-weight: 600;
+    color: var(--spk-title);
+}
+
+.card-body {
+    background-color: #fff;
+}
+
+/* =========================
+   WORKSPACE
+   ========================= */
+.spk-workspace-card {
+    border-radius: var(--spk-radius-lg);
+    overflow: hidden;
+}
+
+.spk-workspace-content {
+    min-height: 420px;
+    background: #fff;
+}
+
+.spk-workspace-home {
+    padding: .35rem;
+    font-size: .95rem;
+}
+
+.spk-tabs {
+    background: #fff;
+    border-bottom: 1px solid var(--spk-border-soft);
+    gap: .2rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+}
+
+.spk-tabs::-webkit-scrollbar {
+    height: 6px;
+}
+
+.spk-tabs::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, .15);
+    border-radius: 10px;
+}
+
+.spk-tabs .nav-item {
+    flex: 0 0 auto;
+}
+
+.spk-tabs .nav-link {
+    border-radius: .5rem .5rem 0 0;
+    color: var(--spk-text);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: .2rem;
+    padding: .65rem .85rem;
+    border: 1px solid transparent;
+}
+
+.spk-tabs .nav-link:hover {
+    background: var(--spk-surface-soft);
+    color: var(--spk-primary-dark);
+}
+
+.spk-tabs .nav-link.active {
+    background: #fff;
+    color: var(--spk-primary-dark);
+    border-color: var(--spk-border-soft) var(--spk-border-soft) #fff;
+    font-weight: 600;
+}
+
+.spk-workspace-tab .btn-link {
+    text-decoration: none !important;
+    box-shadow: none !important;
+}
+
+.spk-workspace-pane {
+    background: #fff;
+}
+
+.workspace-frame {
+    display: block;
+    width: 100%;
+    min-height: 420px;
+    background: #fff;
+}
+
+/* =========================
+   FOOTER
+   ========================= */
+.spk-footer {
+    border-top: 1px solid var(--spk-border-soft);
+    font-size: .92rem;
+    background: #fff;
+}
+
+.spk-footer-link {
+    color: var(--spk-primary-dark);
+    font-weight: 600;
+}
+
+.spk-footer-link:hover {
+    text-decoration: none;
+}
+
+/* =========================
+   FORMULÁRIOS
+   ========================= */
+.form-control,
+.custom-select,
+.select2-container--default .select2-selection--single {
+    border-radius: var(--spk-radius);
+    border-color: #ced4da;
+    box-shadow: none;
+}
+
+.form-control,
+.custom-select,
+select.form-control {
+    min-height: 36px;
+    height: 36px;
+    padding: .375rem .75rem;
+    font-size: .875rem;
+}
+
+textarea.form-control {
+    min-height: auto;
+    height: auto;
+}
+
+.form-control:focus,
+.custom-select:focus {
+    border-color: #9bb8ff;
+    box-shadow: 0 0 0 .2rem rgba(47, 111, 237, .15);
+}
+
+label {
+    font-weight: 600;
+    color: var(--spk-title);
+    margin-bottom: .35rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.spk-filter-grid .form-group {
+    margin-bottom: 1rem;
+}
+
+.spk-filter-grid .form-control,
+.spk-filter-grid .custom-select,
+.spk-filter-grid select.form-control {
+    min-height: 36px;
+    height: 36px;
+    padding: .375rem .75rem;
+    font-size: .875rem;
+}
+
+.spk-card-tools {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.spk-form-actions {
+    display: flex;
+    gap: .5rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    margin-top: .5rem;
+}
+
+/* =========================
+   BOTÕES
+   ========================= */
+.btn {
+    border-radius: var(--spk-radius);
+    font-weight: 600;
+    box-shadow: none !important;
+}
+
+.btn-sm {
+    padding: .25rem .5rem;
+    font-size: .8125rem;
+    line-height: 1.35;
+}
+
+.btn-primary {
+    background-color: var(--spk-primary);
+    border-color: var(--spk-primary);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--spk-primary-dark);
+    border-color: var(--spk-primary-dark);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--spk-primary);
+    border-color: var(--spk-primary);
+}
+
+/* =========================
+   TABELAS / GRID
+   ========================= */
+.table {
+    margin-bottom: 0;
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+}
+
+.table thead th {
+    border-bottom: 1px solid var(--spk-border);
+    color: var(--spk-title);
+    font-weight: 700;
+    vertical-align: middle;
+    background-color: #f8fafc;
+    padding: .52rem .75rem;
+    font-size: .86rem;
+    line-height: 1.15;
+    white-space: nowrap;
+}
+
+/* ===== AJUSTE FINO GRID SPK - DEFINITIVO ===== */
+.table tbody td {
+    padding: .45rem .75rem;
+    font-size: .90rem;
+    line-height: 1.25;
+}
+
+.table tbody tr {
+    height: 40px;
+}
+
+.table-sm tbody td {
+    padding: .35rem .6rem;
+    font-size: .84rem;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border-color: #e9edf2;
+}
+
+.spk-table-actions {
+    white-space: nowrap;
+    width: 1%;
+}
+
+.spk-table-actions .btn {
+    padding: .2rem .45rem;
+    font-size: .78rem;
+    line-height: 1.2;
+}
+
+.spk-table-actions .btn + .btn {
+    margin-left: .2rem;
+}
+
+.table-hover tbody tr {
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(47, 111, 237, 0.30);
+    box-shadow: inset 4px 0 0 var(--spk-primary);
+}
+
+.table .badge {
+    font-size: .74rem;
+    font-weight: 600;
+    padding: .32em .5em;
+    vertical-align: middle;
+}
+
+.table-responsive {
+    border-radius: var(--spk-radius);
+}
+
+/* =========================
+   DATA TABLES
+   ========================= */
+.dataTables_wrapper .row:first-child {
+    margin-bottom: .6rem;
+}
+
+.dataTables_wrapper .row:last-child {
+    margin-top: .6rem;
+}
+
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter {
+    margin-bottom: 0;
+}
+
+.dataTables_wrapper .dataTables_filter label,
+.dataTables_wrapper .dataTables_length label {
+    font-weight: 600;
+    color: var(--spk-title);
+    font-size: .875rem;
+    margin-bottom: 0;
+}
+
+.dataTables_wrapper .dataTables_filter input,
+.dataTables_wrapper .dataTables_length select {
+    border-radius: var(--spk-radius);
+    border: 1px solid #ced4da;
+    min-height: 36px;
+    height: 36px;
+    padding: .375rem .75rem;
+    font-size: .875rem;
+    box-shadow: none;
+    background-color: #fff;
+}
+
+.dataTables_wrapper .dataTables_filter input:focus,
+.dataTables_wrapper .dataTables_length select:focus {
+    border-color: #9bb8ff;
+    box-shadow: 0 0 0 .2rem rgba(47, 111, 237, .15);
+    outline: 0;
+}
+
+.dataTables_wrapper .dataTables_info {
+    font-size: .82rem;
+    color: var(--spk-text-muted);
+    padding-top: .55rem;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+    padding-top: .2rem;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    border-radius: var(--spk-radius-sm) !important;
+    font-size: .82rem;
+    padding: .28rem .7rem !important;
+    min-width: auto;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: var(--spk-primary) !important;
+    border-color: var(--spk-primary) !important;
+    color: #fff !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: var(--spk-primary-light) !important;
+    border-color: #cfe0ff !important;
+    color: var(--spk-primary-dark) !important;
+}
+
+.dt-buttons .btn {
+    margin-right: .35rem;
+    margin-bottom: .35rem;
+}
+
+
+/* =========================
+   COLUNA DE AÇÕES - PADRÃO SPK
+   ========================= */
+.spk-col-acoes {
+    width: 1%;
+    white-space: nowrap;
+    text-align: right;
+}
+
+.spk-acoes {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: .28rem;
+    opacity: .22;
+    transform: translateX(4px);
+    transition: opacity .18s ease, transform .18s ease;
+}
+
+/* Exibe com força no hover da linha */
+.table-hover tbody tr:hover .spk-acoes,
+.table tbody tr.spk-row-active .spk-acoes,
+.table tbody tr:focus-within .spk-acoes {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Quando a tabela não usar .table-hover, manter visível */
+.table tbody td .spk-acoes {
+    visibility: visible;
+}
+
+/* Botão compacto padrão de ação */
+.spk-btn-acao {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 1px solid #dfe5ec;
+    border-radius: .45rem;
+    background: #fff;
+    color: #495057;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    box-shadow: none !important;
+    transition: all .15s ease;
+    text-decoration: none !important;
+}
+
+.spk-btn-acao i {
+    font-size: .82rem;
+    line-height: 1;
+}
+
+.spk-btn-acao:hover,
+.spk-btn-acao:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .08) !important;
+    text-decoration: none !important;
+}
+
+/* Variantes */
+.spk-btn-acao--view {
+    color: #0d6efd;
+    border-color: rgba(13, 110, 253, .20);
+    background: rgba(13, 110, 253, .05);
+}
+
+.spk-btn-acao--view:hover,
+.spk-btn-acao--view:focus {
+    color: #0a58ca;
+    background: rgba(13, 110, 253, .12);
+}
+
+.spk-btn-acao--edit {
+    color: #198754;
+    border-color: rgba(25, 135, 84, .20);
+    background: rgba(25, 135, 84, .05);
+}
+
+.spk-btn-acao--edit:hover,
+.spk-btn-acao--edit:focus {
+    color: #146c43;
+    background: rgba(25, 135, 84, .12);
+}
+
+.spk-btn-acao--delete {
+    color: #dc3545;
+    border-color: rgba(220, 53, 69, .20);
+    background: rgba(220, 53, 69, .05);
+}
+
+.spk-btn-acao--delete:hover,
+.spk-btn-acao--delete:focus {
+    color: #b02a37;
+    background: rgba(220, 53, 69, .12);
+}
+
+.spk-btn-acao--status {
+    color: #fd7e14;
+    border-color: rgba(253, 126, 20, .20);
+    background: rgba(253, 126, 20, .05);
+}
+
+.spk-btn-acao--status:hover,
+.spk-btn-acao--status:focus {
+    color: #ca6510;
+    background: rgba(253, 126, 20, .12);
+}
+
+.spk-btn-acao--more {
+    color: #6c757d;
+    border-color: rgba(108, 117, 125, .20);
+    background: rgba(108, 117, 125, .05);
+}
+
+.spk-btn-acao--more:hover,
+.spk-btn-acao--more:focus {
+    color: #495057;
+    background: rgba(108, 117, 125, .12);
+}
+
+/* Compatibilidade com botões atuais simples */
+td.text-right .btn.btn-sm {
+    min-width: 30px;
+    height: 30px;
+    padding: 0 .45rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: .45rem;
+}
+
+td.text-right .btn.btn-sm + .btn.btn-sm {
+    margin-left: .25rem;
+}
+
+/* Linha ativa opcional */
+.table tbody tr.spk-row-active {
+    background-color: rgba(47, 111, 237, 0.18);
+    box-shadow: inset 4px 0 0 var(--spk-primary);
+}
+
+@media (max-width: 991.98px) {
+    .spk-acoes {
+        opacity: .95;
+        transform: none;
+    }
+
+    .spk-btn-acao {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+
+/* ====== ACRESCENTADO EM 20-03-2026 ======= */
+
+/* =========================
+   SWEETALERT2 - PADRÃO SPK
+   ========================= */
+.spk-swal-popup {
+    border-radius: .85rem;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, .16);
+    padding: 1.25rem 1.25rem 1rem;
+}
+
+.spk-swal-title {
+    color: var(--spk-title);
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.3;
+}
+
+.spk-swal-html {
+    color: var(--spk-text);
+    font-size: .95rem;
+    line-height: 1.5;
+}
+
+.spk-swal-confirm,
+.spk-swal-cancel,
+.spk-swal-deny {
+    border-radius: var(--spk-radius);
+    font-weight: 600;
+    min-width: 110px;
+    box-shadow: none !important;
+}
+
+.spk-swal-confirm.btn-danger,
+.spk-swal-confirm.btn-primary,
+.spk-swal-confirm.btn-success {
+    color: #fff;
+}
+
+.spk-swal-confirm:focus,
+.spk-swal-cancel:focus,
+.spk-swal-deny:focus {
+    box-shadow: 0 0 0 .2rem rgba(47, 111, 237, .15) !important;
+}
+
+.spk-swal-icon.swal2-warning {
+    border-color: rgba(255, 193, 7, .35);
+    color: #d39e00;
+}
+
+.spk-swal-icon.swal2-success {
+    border-color: rgba(25, 135, 84, .25);
+    color: var(--spk-success);
+}
+
+.spk-swal-icon.swal2-error {
+    border-color: rgba(220, 53, 69, .25);
+    color: var(--spk-danger);
+}
+
+.spk-swal-actions {
+    gap: .5rem;
+    margin-top: 1.25rem;
+}
+
+.spk-swal-loader {
+    border-radius: .75rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .12);
+}
+
+/* ====== FIM DO ACRESCENTADO EM 20-03-2026 ======= */
+
+/* =========================
+   ALERTAS / FEEDBACK
+   ========================= */
+.alert {
+    border-radius: var(--spk-radius);
+    box-shadow: var(--spk-shadow-sm);
+}
+
+.small-box,
+.info-box {
+    border-radius: var(--spk-radius-lg);
+    box-shadow: var(--spk-shadow-sm);
+}
+
+/* =========================
+   UTILITÁRIOS SPK
+   ========================= */
+.spk-content-centered {
+    min-height: calc(100vh - 140px);
+}
+
+.spk-row-centered {
+    min-height: calc(100vh - 180px);
+}
+
+.spk-card-form-sm {
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.spk-card-form-md {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.spk-card-form-lg {
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.spk-section-muted {
+    color: var(--spk-text-muted);
+}
+
+.spk-shadow-sm {
+    box-shadow: var(--spk-shadow-sm) !important;
+}
+
+.spk-shadow {
+    box-shadow: var(--spk-shadow) !important;
+}
+
+.spk-rounded {
+    border-radius: var(--spk-radius) !important;
+}
+
+.spk-rounded-lg {
+    border-radius: var(--spk-radius-lg) !important;
+}
+
+/* =========================
+   IFRAME PAGES / TELAS INTERNAS
+   ========================= */
+body.iframe-mode .content-wrapper,
+body.layout-top-nav .content-wrapper {
+    background-color: var(--spk-bg);
+}
+
+/* =========================
+   RESPONSIVIDADE
+   ========================= */
+@media (max-width: 991.98px) {
+    .spk-brand-text {
+        font-size: .95rem;
+    }
+
+    .spk-user-name {
+        max-width: 130px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .spk-form-actions,
+    .spk-card-tools {
+        justify-content: stretch;
+    }
+
+    .spk-form-actions .btn,
+    .spk-card-tools .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .content-wrapper > .content {
+        padding-left: .5rem !important;
+        padding-right: .5rem !important;
+    }
+
+    .spk-tabs .nav-link {
+        padding: .55rem .7rem;
+        font-size: .92rem;
+    }
+
+    .card-header {
+        padding: .75rem 1rem;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    .table thead th {
+        padding: .45rem .55rem;
+        font-size: .8rem;
+    }
+
+    .table tbody td {
+        padding: .38rem .55rem;
+        font-size: .83rem;
+    }
+
+    .main-footer {
+        text-align: center;
+    }
+
+    .main-footer .float-right {
+        float: none !important;
+        display: block !important;
+        margin-bottom: .35rem;
+    }
+}
