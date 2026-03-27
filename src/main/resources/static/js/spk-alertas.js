@@ -7,26 +7,31 @@
 
 const SpkAlertas = (function () {
 
+    function baseCustomClass(tipo, confirmButtonClass, cancelButtonClass) {
+        return {
+            popup: 'spk-swal-popup spk-swal-' + tipo,
+            title: 'spk-swal-title',
+            htmlContainer: 'spk-swal-html',
+            confirmButton: (confirmButtonClass || 'btn btn-primary') + ' spk-swal-confirm',
+            cancelButton: (cancelButtonClass || 'btn btn-outline-secondary') + ' spk-swal-cancel',
+            actions: 'spk-swal-actions',
+            icon: 'spk-swal-icon'
+        };
+    }
+
     function confirmarExclusao(callback, titulo, mensagem) {
         Swal.fire({
             title: titulo || 'Confirmar exclusão?',
             text: mensagem || 'Esta ação não poderá ser desfeita.',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: '<i class="fas fa-trash-alt me-1"></i> Sim, excluir',
-            cancelButtonText: '<i class="fas fa-times me-1"></i> Cancelar',
+            confirmButtonText: '<i class="fas fa-trash-alt mr-1"></i>Sim, excluir',
+            cancelButtonText: '<i class="fas fa-times mr-1"></i>Cancelar',
             reverseButtons: true,
             focusCancel: true,
             allowOutsideClick: false,
             allowEscapeKey: true,
-            customClass: {
-                popup: 'spk-swal-popup',
-                title: 'spk-swal-title',
-                htmlContainer: 'spk-swal-html',
-                confirmButton: 'btn btn-danger spk-swal-confirm',
-                cancelButton: 'btn btn-secondary spk-swal-cancel',
-                actions: 'spk-swal-actions'
-            },
+            customClass: baseCustomClass('warning', 'btn btn-danger', 'btn btn-outline-secondary'),
             buttonsStyling: false
         }).then((result) => {
             if (result.isConfirmed && typeof callback === 'function') {
@@ -41,12 +46,7 @@ const SpkAlertas = (function () {
             title: titulo || 'Sucesso!',
             text: mensagem || '',
             confirmButtonText: 'OK',
-            customClass: {
-                popup: 'spk-swal-popup',
-                title: 'spk-swal-title',
-                htmlContainer: 'spk-swal-html',
-                confirmButton: 'btn btn-success spk-swal-confirm'
-            },
+            customClass: baseCustomClass('success', 'btn btn-success'),
             buttonsStyling: false
         });
     }
@@ -57,12 +57,7 @@ const SpkAlertas = (function () {
             title: titulo || 'Erro!',
             text: mensagem || '',
             confirmButtonText: 'OK',
-            customClass: {
-                popup: 'spk-swal-popup',
-                title: 'spk-swal-title',
-                htmlContainer: 'spk-swal-html',
-                confirmButton: 'btn btn-danger spk-swal-confirm'
-            },
+            customClass: baseCustomClass('error', 'btn btn-danger'),
             buttonsStyling: false
         });
     }
@@ -73,12 +68,7 @@ const SpkAlertas = (function () {
             title: titulo || 'Atenção!',
             text: mensagem || '',
             confirmButtonText: 'OK',
-            customClass: {
-                popup: 'spk-swal-popup',
-                title: 'spk-swal-title',
-                htmlContainer: 'spk-swal-html',
-                confirmButton: 'btn btn-warning spk-swal-confirm'
-            },
+            customClass: baseCustomClass('warning', 'btn btn-warning'),
             buttonsStyling: false
         });
     }
@@ -89,12 +79,7 @@ const SpkAlertas = (function () {
             title: titulo || 'Informação',
             text: mensagem || '',
             confirmButtonText: 'OK',
-            customClass: {
-                popup: 'spk-swal-popup',
-                title: 'spk-swal-title',
-                htmlContainer: 'spk-swal-html',
-                confirmButton: 'btn btn-primary spk-swal-confirm'
-            },
+            customClass: baseCustomClass('info', 'btn btn-primary'),
             buttonsStyling: false
         });
     }
@@ -104,12 +89,14 @@ const SpkAlertas = (function () {
             title: mensagem || 'Aguarde...',
             allowOutsideClick: false,
             allowEscapeKey: false,
-            didOpen: () => {
-                Swal.showLoading();
-            },
             customClass: {
                 popup: 'spk-swal-loader',
-                title: 'spk-swal-title'
+                title: 'spk-swal-title',
+                htmlContainer: 'spk-swal-html',
+                icon: 'spk-swal-icon'
+            },
+            didOpen: () => {
+                Swal.showLoading();
             }
         });
     }
@@ -129,7 +116,6 @@ const SpkAlertas = (function () {
     };
 
 })();
-
 
 /**
  * ============================================
@@ -168,9 +154,7 @@ document.addEventListener('click', function (e) {
             }
         }, titulo, mensagem);
     }
-
 });
-
 
 /**
  * ============================================
@@ -179,6 +163,6 @@ document.addEventListener('click', function (e) {
  */
 if (window.jQuery && $.fn.DataTable) {
     $(document).on('draw.dt', function () {
-        // Nada necessário — usamos delegação global
+        // Delegação global já cobre os botões renderizados dinamicamente
     });
 }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="filtro(titulo, conteudoFragmento)"
+     class="card card-outline card-danger spk-shadow-sm mb-3"
+     data-spk-filter>
+
+    <div class="card-header py-2">
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
+
+            <h3 class="card-title mb-0">
+                <i class="fas fa-search mr-2"></i>
+                <span th:text="${titulo}">Filtros</span>
+            </h3>
+
+            <div class="card-tools">
+                <button type="button"
+                        class="btn btn-tool spk-toggle-btn"
+                        data-toggle="collapse"
+                        data-target="#spkFiltroBody"
+                        data-spk-filter-toggle
+                        aria-expanded="true"
+                        aria-controls="spkFiltroBody"
+                        title="Expandir/Recolher filtros">
+                    <span class="spk-toggle-icon" data-spk-filter-icon>−</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="spkFiltroBody"
+         class="collapse show"
+         data-spk-filter-body>
+        <div class="card-body pb-2">
+
+            <div class="row spk-filter-grid">
+                <th:block th:replace="${conteudoFragmento}"></th:block>
+            </div>
+
+            <div class="spk-form-actions mt-2">
+                <button type="button"
+                        class="btn btn-primary btn-sm"
+                        id="btnPesquisar"
+                        data-spk-filter-search>
+                    <i class="fas fa-search mr-1"></i>
+                    Pesquisar
+                </button>
+
+                <button type="button"
+                        class="btn btn-outline-secondary btn-sm"
+                        id="btnLimpar"
+                        data-spk-filter-clear>
+                    <i class="fas fa-eraser mr-1"></i>
+                    Limpar
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

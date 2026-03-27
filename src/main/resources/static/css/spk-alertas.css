@@ -1,0 +1,187 @@
+/* =========================================================
+   SPK SISTEMAS - ALERTAS / SWEETALERT2
+   Estilo padronizado para popups, confirmações e loaders
+   ========================================================= */
+
+/* =========================
+   POPUP BASE
+   ========================= */
+.spk-swal-popup {
+    width: 360px !important;
+    max-width: 90%;
+    border-radius: .65rem;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, .14);
+    padding: .85rem .85rem .75rem;
+}
+
+.spk-swal-title {
+    color: #1f2d3d;
+    font-weight: 700;
+    font-size: 1.10rem;
+    line-height: 1.3;
+    margin-top: .25rem;
+    margin-bottom: .35rem;
+}
+
+.spk-swal-html {
+    color: #343a40;
+    font-size: .90rem;
+    line-height: 1.45;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.spk-swal-actions {
+    gap: .45rem;
+    margin-top: 1rem;
+    margin-bottom: .1rem;
+}
+
+/* =========================
+   BOTÕES
+   ========================= */
+.spk-swal-confirm,
+.spk-swal-cancel,
+.spk-swal-deny {
+    border-radius: .5rem;
+    font-weight: 600;
+    min-width: 90px;
+    padding: .38rem .70rem;
+    font-size: .85rem;
+    box-shadow: none !important;
+}
+
+.spk-swal-confirm:focus,
+.spk-swal-cancel:focus,
+.spk-swal-deny:focus {
+    box-shadow: 0 0 0 .2rem rgba(47, 111, 237, .15) !important;
+}
+
+.spk-swal-confirm.btn-primary,
+.spk-swal-confirm.btn-danger,
+.spk-swal-confirm.btn-success {
+    color: #fff;
+}
+
+/* =========================
+   ÍCONES
+   ========================= */
+.spk-swal-icon {
+    margin-top: .25rem !important;
+    margin-bottom: .5rem !important;
+    transform: scale(.88);
+}
+
+.spk-swal-icon.swal2-success {
+    border-color: rgba(25, 135, 84, .24);
+    color: #198754;
+}
+
+.spk-swal-icon.swal2-error {
+    border-color: rgba(220, 53, 69, .24);
+    color: #dc3545;
+}
+
+.spk-swal-icon.swal2-warning {
+    border-color: rgba(255, 193, 7, .34);
+    color: #d39e00;
+}
+
+.spk-swal-icon.swal2-info {
+    border-color: rgba(13, 202, 240, .28);
+    color: #0dcaf0;
+}
+
+.spk-swal-icon.swal2-question {
+    border-color: rgba(108, 117, 125, .24);
+    color: #6c757d;
+}
+
+/* =========================
+   VARIANTES POR TIPO
+   ========================= */
+.spk-swal-success .spk-swal-title {
+    color: #1f2d3d;
+}
+
+.spk-swal-error .spk-swal-title {
+    color: #1f2d3d;
+}
+
+.spk-swal-warning .spk-swal-title {
+    color: #1f2d3d;
+}
+
+.spk-swal-info .spk-swal-title {
+    color: #1f2d3d;
+}
+
+.spk-swal-question .spk-swal-title {
+    color: #1f2d3d;
+}
+
+/* =========================
+   LOADER / AGUARDE
+   ========================= */
+.spk-swal-loader {
+    width: 320px !important;
+    max-width: 88%;
+    border-radius: .70rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .12);
+    padding: .90rem .95rem .85rem;
+}
+
+.spk-swal-loader .swal2-title {
+    font-size: 1rem;
+    margin-bottom: .3rem;
+}
+
+.spk-swal-loader .swal2-html-container {
+    font-size: .88rem;
+    line-height: 1.4;
+}
+
+/* =========================
+   TOASTS FUTUROS
+   ========================= */
+.spk-swal-toast {
+    border-radius: .65rem;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .12);
+    padding: .55rem .75rem;
+}
+
+.spk-swal-toast .swal2-title {
+    font-size: .92rem;
+    font-weight: 700;
+}
+
+.spk-swal-toast .swal2-html-container {
+    font-size: .82rem;
+    line-height: 1.35;
+}
+
+/* =========================
+   RESPONSIVIDADE
+   ========================= */
+@media (max-width: 576px) {
+    .spk-swal-popup {
+        width: 92% !important;
+        padding: .75rem .70rem .70rem;
+    }
+
+    .spk-swal-title {
+        font-size: 1rem;
+    }
+
+    .spk-swal-html {
+        font-size: .86rem;
+    }
+
+    .spk-swal-confirm,
+    .spk-swal-cancel,
+    .spk-swal-deny {
+        min-width: 82px;
+        font-size: .82rem;
+        padding: .34rem .60rem;
+    }
+}

@@ -1,0 +1,846 @@
+C:\WS\SPK
+|   .classpath
+|   .gitattributes
+|   .gitignore
+|   .project
+|   backup-github.bat
+|   dirtree.txt
+|   HELP.md
+|   mvnw
+|   mvnw.cmd
+|   pom.xml
+|
++---.mvn
+|   \---wrapper
+|           maven-wrapper.properties
+|
++---.settings
+|       org.eclipse.core.resources.prefs
+|       org.eclipse.jdt.apt.core.prefs
+|       org.eclipse.jdt.core.prefs
+|       org.eclipse.m2e.core.prefs
+|       org.springframework.ide.eclipse.prefs
+|
++---src
+|   +---main
+|   |   +---java
+|   |   |   +---com
+|   |   |   |   \---spk
+|   |   |   |       \---sistemas
+|   |   |   |           |   SpkApplication.java
+|   |   |   |           |
+|   |   |   |           +---config
+|   |   |   |           |       CustomAuthenticationFailureHandler.java
+|   |   |   |           |       CustomAuthenticationSuccessHandler.java
+|   |   |   |           |       DataInitializer.java
+|   |   |   |           |       GlobalModelAttributes.java
+|   |   |   |           |       SecurityConfig.java
+|   |   |   |           |
+|   |   |   |           +---controller
+|   |   |   |           |       AdminDashboardController.java
+|   |   |   |           |       CustomErrorController.java
+|   |   |   |           |       DashboardController.java
+|   |   |   |           |       ErroController.java
+|   |   |   |           |       HomeController.java
+|   |   |   |           |       LoginController.java
+|   |   |   |           |       MenuController.java
+|   |   |   |           |       ParametrosController.java
+|   |   |   |           |       UsuarioController.java
+|   |   |   |           |       UsuarioDashboardController.java
+|   |   |   |           |
+|   |   |   |           +---dao
+|   |   |   |           |       AbstractDao.java
+|   |   |   |           |
+|   |   |   |           +---dto
+|   |   |   |           |       AlterarSenhaDto.java
+|   |   |   |           |       UsuarioDto.java
+|   |   |   |           |       UsuarioTableDTO.java
+|   |   |   |           |
+|   |   |   |           +---model
+|   |   |   |           |       AbstractEntity.java
+|   |   |   |           |       Role.java
+|   |   |   |           |       Usuario.java
+|   |   |   |           |       UsuarioDetails.java
+|   |   |   |           |
+|   |   |   |           +---repository
+|   |   |   |           |       RoleRepository.java
+|   |   |   |           |       UsuarioRepository.java
+|   |   |   |           |
+|   |   |   |           +---service
+|   |   |   |           |   |   RoleService.java
+|   |   |   |           |   |   UsuarioDetails.java
+|   |   |   |           |   |   UsuarioDetailsService.java
+|   |   |   |           |   |   UsuarioService.java
+|   |   |   |           |   |
+|   |   |   |           |   \---impl
+|   |   |   |           |           RoleServiceImpl.java
+|   |   |   |           |
+|   |   |   |           +---validation
+|   |   |   |           \---web
+|   |   |   |               \---util
+|   |   |   \---lixo
+|   |   |           alterar-senha.html
+|   |   |           lista-usuario.html
+|   |   |           style.css
+|   |   |
+|   |   \---resources
+|   |       |   application.properties
+|   |       |
+|   |       +---static
+|   |       |   +---css
+|   |       |   |       app.css
+|   |       |   |       spk-filtros.css
+|   |       |   |       spk-padrao.css
+|   |       |   |
+|   |       |   +---dist
+|   |       |   |   +---css
+|   |       |   |   |   |   adminlte.css
+|   |       |   |   |   |   adminlte.css.map
+|   |       |   |   |   |   adminlte.min.css
+|   |       |   |   |   |   adminlte.min.css.map
+|   |       |   |   |   |
+|   |       |   |   |   \---alt
+|   |       |   |   |           adminlte.components.css
+|   |       |   |   |           adminlte.components.css.map
+|   |       |   |   |           adminlte.components.min.css
+|   |       |   |   |           adminlte.components.min.css.map
+|   |       |   |   |           adminlte.core.css
+|   |       |   |   |           adminlte.core.css.map
+|   |       |   |   |           adminlte.core.min.css
+|   |       |   |   |           adminlte.core.min.css.map
+|   |       |   |   |           adminlte.extra-components.css
+|   |       |   |   |           adminlte.extra-components.css.map
+|   |       |   |   |           adminlte.extra-components.min.css
+|   |       |   |   |           adminlte.extra-components.min.css.map
+|   |       |   |   |           adminlte.light.css
+|   |       |   |   |           adminlte.light.css.map
+|   |       |   |   |           adminlte.light.min.css
+|   |       |   |   |           adminlte.light.min.css.map
+|   |       |   |   |           adminlte.pages.css
+|   |       |   |   |           adminlte.pages.css.map
+|   |       |   |   |           adminlte.pages.min.css
+|   |       |   |   |           adminlte.pages.min.css.map
+|   |       |   |   |           adminlte.plugins.css
+|   |       |   |   |           adminlte.plugins.css.map
+|   |       |   |   |           adminlte.plugins.min.css
+|   |       |   |   |           adminlte.plugins.min.css.map
+|   |       |   |   |
+|   |       |   |   +---img
+|   |       |   |   |   |   AdminLTELogo.png
+|   |       |   |   |   |   avatar.png
+|   |       |   |   |   |   avatar2.png
+|   |       |   |   |   |   avatar3.png
+|   |       |   |   |   |   avatar4.png
+|   |       |   |   |   |   avatar5.png
+|   |       |   |   |   |   boxed-bg.jpg
+|   |       |   |   |   |   boxed-bg.png
+|   |       |   |   |   |   default-150x150.png
+|   |       |   |   |   |   icons.png
+|   |       |   |   |   |   photo1.png
+|   |       |   |   |   |   photo2.png
+|   |       |   |   |   |   photo3.jpg
+|   |       |   |   |   |   photo4.jpg
+|   |       |   |   |   |   prod-1.jpg
+|   |       |   |   |   |   prod-2.jpg
+|   |       |   |   |   |   prod-3.jpg
+|   |       |   |   |   |   prod-4.jpg
+|   |       |   |   |   |   prod-5.jpg
+|   |       |   |   |   |   user1-128x128.jpg
+|   |       |   |   |   |   user2-160x160.jpg
+|   |       |   |   |   |   user3-128x128.jpg
+|   |       |   |   |   |   user4-128x128.jpg
+|   |       |   |   |   |   user5-128x128.jpg
+|   |       |   |   |   |   user6-128x128.jpg
+|   |       |   |   |   |   user7-128x128.jpg
+|   |       |   |   |   |   user8-128x128.jpg
+|   |       |   |   |   |
+|   |       |   |   |   \---credit
+|   |       |   |   |           american-express.png
+|   |       |   |   |           cirrus.png
+|   |       |   |   |           mastercard.png
+|   |       |   |   |           paypal.png
+|   |       |   |   |           paypal2.png
+|   |       |   |   |           visa.png
+|   |       |   |   |
+|   |       |   |   \---js
+|   |       |   |       |   .eslintrc.json
+|   |       |   |       |   adminlte.js
+|   |       |   |       |   adminlte.js.map
+|   |       |   |       |   adminlte.min.js
+|   |       |   |       |   adminlte.min.js.map
+|   |       |   |       |   demo.js
+|   |       |   |       |
+|   |       |   |       \---pages
+|   |       |   |               dashboard.js
+|   |       |   |               dashboard2.js
+|   |       |   |               dashboard3.js
+|   |       |   |
+|   |       |   +---images
+|   |       |   |       error.ico
+|   |       |   |       favicon.png
+|   |       |   |       logo.png
+|   |       |   |       spk-logo.ico
+|   |       |   |
+|   |       |   +---js
+|   |       |   |   |   scripts.js
+|   |       |   |   |   spk-alertas.js
+|   |       |   |   |   spk-filtros.js
+|   |       |   |   |   workspace.js
+|   |       |   |   |
+|   |       |   |   \---datatable
+|   |       |   |           datatable-config.js
+|   |       |   |           datatable-helper.js
+|   |       |   |
+|   |       |   +---plugins
+|   |       |   |   +---bootstrap
+|   |       |   |   |   \---js
+|   |       |   |   |           bootstrap.bundle.js
+|   |       |   |   |           bootstrap.bundle.js.map
+|   |       |   |   |           bootstrap.bundle.min.js
+|   |       |   |   |           bootstrap.bundle.min.js.map
+|   |       |   |   |           bootstrap.js
+|   |       |   |   |           bootstrap.js.map
+|   |       |   |   |           bootstrap.min.js
+|   |       |   |   |           bootstrap.min.js.map
+|   |       |   |   |
+|   |       |   |   +---datatables
+|   |       |   |   |       jquery.dataTables.js
+|   |       |   |   |       jquery.dataTables.min.js
+|   |       |   |   |
+|   |       |   |   +---datatables-bs4
+|   |       |   |   |   +---css
+|   |       |   |   |   |       dataTables.bootstrap4.css
+|   |       |   |   |   |       dataTables.bootstrap4.min.css
+|   |       |   |   |   |
+|   |       |   |   |   \---js
+|   |       |   |   |           dataTables.bootstrap4.js
+|   |       |   |   |           dataTables.bootstrap4.min.js
+|   |       |   |   |
+|   |       |   |   +---fontawesome-free
+|   |       |   |   |   +---css
+|   |       |   |   |   |       all.css
+|   |       |   |   |   |       all.min.css
+|   |       |   |   |   |       brands.css
+|   |       |   |   |   |       brands.min.css
+|   |       |   |   |   |       fontawesome.css
+|   |       |   |   |   |       fontawesome.min.css
+|   |       |   |   |   |       regular.css
+|   |       |   |   |   |       regular.min.css
+|   |       |   |   |   |       solid.css
+|   |       |   |   |   |       solid.min.css
+|   |       |   |   |   |       svg-with-js.css
+|   |       |   |   |   |       svg-with-js.min.css
+|   |       |   |   |   |       v4-shims.css
+|   |       |   |   |   |       v4-shims.min.css
+|   |       |   |   |   |
+|   |       |   |   |   \---webfonts
+|   |       |   |   |           fa-brands-400.eot
+|   |       |   |   |           fa-brands-400.svg
+|   |       |   |   |           fa-brands-400.ttf
+|   |       |   |   |           fa-brands-400.woff
+|   |       |   |   |           fa-brands-400.woff2
+|   |       |   |   |           fa-regular-400.eot
+|   |       |   |   |           fa-regular-400.svg
+|   |       |   |   |           fa-regular-400.ttf
+|   |       |   |   |           fa-regular-400.woff
+|   |       |   |   |           fa-regular-400.woff2
+|   |       |   |   |           fa-solid-900.eot
+|   |       |   |   |           fa-solid-900.svg
+|   |       |   |   |           fa-solid-900.ttf
+|   |       |   |   |           fa-solid-900.woff
+|   |       |   |   |           fa-solid-900.woff2
+|   |       |   |   |
+|   |       |   |   +---icheck-bootstrap
+|   |       |   |   |       icheck-bootstrap.css
+|   |       |   |   |       icheck-bootstrap.min.css
+|   |       |   |   |       LICENSE
+|   |       |   |   |
+|   |       |   |   +---inputmask
+|   |       |   |   |       inputmask.es6.js
+|   |       |   |   |       inputmask.js
+|   |       |   |   |       inputmask.min.js
+|   |       |   |   |       jquery.inputmask.js
+|   |       |   |   |       jquery.inputmask.min.js
+|   |       |   |   |
+|   |       |   |   +---jquery
+|   |       |   |   |       jquery.js
+|   |       |   |   |       jquery.min.js
+|   |       |   |   |       jquery.min.map
+|   |       |   |   |       jquery.slim.js
+|   |       |   |   |       jquery.slim.min.js
+|   |       |   |   |       jquery.slim.min.map
+|   |       |   |   |
+|   |       |   |   +---select2
+|   |       |   |   |   +---css
+|   |       |   |   |   |       select2.css
+|   |       |   |   |   |       select2.min.css
+|   |       |   |   |   |
+|   |       |   |   |   \---js
+|   |       |   |   |       |   select2.full.js
+|   |       |   |   |       |   select2.full.min.js
+|   |       |   |   |       |   select2.js
+|   |       |   |   |       |   select2.min.js
+|   |       |   |   |       |
+|   |       |   |   |       \---i18n
+|   |       |   |   |               af.js
+|   |       |   |   |               ar.js
+|   |       |   |   |               az.js
+|   |       |   |   |               bg.js
+|   |       |   |   |               bn.js
+|   |       |   |   |               bs.js
+|   |       |   |   |               build.txt
+|   |       |   |   |               ca.js
+|   |       |   |   |               cs.js
+|   |       |   |   |               da.js
+|   |       |   |   |               de.js
+|   |       |   |   |               dsb.js
+|   |       |   |   |               el.js
+|   |       |   |   |               en.js
+|   |       |   |   |               es.js
+|   |       |   |   |               et.js
+|   |       |   |   |               eu.js
+|   |       |   |   |               fa.js
+|   |       |   |   |               fi.js
+|   |       |   |   |               fr.js
+|   |       |   |   |               gl.js
+|   |       |   |   |               he.js
+|   |       |   |   |               hi.js
+|   |       |   |   |               hr.js
+|   |       |   |   |               hsb.js
+|   |       |   |   |               hu.js
+|   |       |   |   |               hy.js
+|   |       |   |   |               id.js
+|   |       |   |   |               is.js
+|   |       |   |   |               it.js
+|   |       |   |   |               ja.js
+|   |       |   |   |               ka.js
+|   |       |   |   |               km.js
+|   |       |   |   |               ko.js
+|   |       |   |   |               lt.js
+|   |       |   |   |               lv.js
+|   |       |   |   |               mk.js
+|   |       |   |   |               ms.js
+|   |       |   |   |               nb.js
+|   |       |   |   |               ne.js
+|   |       |   |   |               nl.js
+|   |       |   |   |               pl.js
+|   |       |   |   |               ps.js
+|   |       |   |   |               pt-BR.js
+|   |       |   |   |               pt.js
+|   |       |   |   |               ro.js
+|   |       |   |   |               ru.js
+|   |       |   |   |               sk.js
+|   |       |   |   |               sl.js
+|   |       |   |   |               sq.js
+|   |       |   |   |               sr-Cyrl.js
+|   |       |   |   |               sr.js
+|   |       |   |   |               sv.js
+|   |       |   |   |               th.js
+|   |       |   |   |               tk.js
+|   |       |   |   |               tr.js
+|   |       |   |   |               uk.js
+|   |       |   |   |               vi.js
+|   |       |   |   |               zh-CN.js
+|   |       |   |   |               zh-TW.js
+|   |       |   |   |
+|   |       |   |   \---sweetalert2
+|   |       |   |           sweetalert2.all.js
+|   |       |   |           sweetalert2.all.min.js
+|   |       |   |           sweetalert2.css
+|   |       |   |           sweetalert2.js
+|   |       |   |           sweetalert2.min.css
+|   |       |   |           sweetalert2.min.js
+|   |       |   |
+|   |       |   \---webfonts
+|   |       |           fa-brands-400.eot
+|   |       |           fa-brands-400.svg
+|   |       |           fa-brands-400.ttf
+|   |       |           fa-brands-400.woff
+|   |       |           fa-brands-400.woff2
+|   |       |           fa-regular-400.eot
+|   |       |           fa-regular-400.svg
+|   |       |           fa-regular-400.ttf
+|   |       |           fa-regular-400.woff
+|   |       |           fa-regular-400.woff2
+|   |       |           fa-solid-900.eot
+|   |       |           fa-solid-900.svg
+|   |       |           fa-solid-900.ttf
+|   |       |           fa-solid-900.woff
+|   |       |           fa-solid-900.woff2
+|   |       |
+|   |       \---templates
+|   |           |   acesso-negado.html
+|   |           |   dashboard.html
+|   |           |   home.html
+|   |           |   layout-iframe.html
+|   |           |   layout.html
+|   |           |   login.html
+|   |           |   menu.html
+|   |           |
+|   |           +---dashboard
+|   |           |       admin.html
+|   |           |       usuario.html
+|   |           |
+|   |           +---error
+|   |           |       erro.html
+|   |           |
+|   |           +---fragments
+|   |           |   |   datatables.html
+|   |           |   |   filtro-grid.html
+|   |           |   |   footer.html
+|   |           |   |   form-card.html
+|   |           |   |   grid-card.html
+|   |           |   |   head.html
+|   |           |   |   header.html
+|   |           |   |   mensagens.html
+|   |           |   |   navbar.html
+|   |           |   |   sidebar.html
+|   |           |   |
+|   |           |   \---usuarios
+|   |           |           filtro-usuario.html
+|   |           |           grid-usuario.html
+|   |           |
+|   |           +---parametros
+|   |           |       parametros.html
+|   |           |
+|   |           \---usuarios
+|   |                   alterar-senha.html
+|   |                   form-usuario.html
+|   |                   griduUsuario.png
+|   |                   lista-usuario.html
+|   |
+|   \---test
+|       \---java
+|           \---com
+|               \---spk
+|                   \---sistemas
+|                           SpkApplicationTests.java
+|
+\---target
+    |   SPK-0.0.1-SNAPSHOT.jar
+    |   SPK-0.0.1-SNAPSHOT.jar.original
+    |
+    +---classes
+    |   |   application.properties
+    |   |
+    |   +---com
+    |   |   \---spk
+    |   |       \---sistemas
+    |   |           |   SpkApplication.class
+    |   |           |
+    |   |           +---config
+    |   |           |       CustomAuthenticationFailureHandler.class
+    |   |           |       CustomAuthenticationSuccessHandler.class
+    |   |           |       DataInitializer.class
+    |   |           |       GlobalModelAttributes.class
+    |   |           |       SecurityConfig.class
+    |   |           |
+    |   |           +---controller
+    |   |           |       AdminDashboardController.class
+    |   |           |       CustomErrorController.class
+    |   |           |       DashboardController.class
+    |   |           |       ErroController.class
+    |   |           |       HomeController.class
+    |   |           |       LoginController.class
+    |   |           |       MenuController.class
+    |   |           |       ParametrosController.class
+    |   |           |       UsuarioController.class
+    |   |           |       UsuarioDashboardController.class
+    |   |           |
+    |   |           +---dao
+    |   |           |       AbstractDao.class
+    |   |           |
+    |   |           +---dto
+    |   |           |       AlterarSenhaDto.class
+    |   |           |       UsuarioDto$RoleDto.class
+    |   |           |       UsuarioDto.class
+    |   |           |       UsuarioTableDTO.class
+    |   |           |
+    |   |           +---model
+    |   |           |       AbstractEntity.class
+    |   |           |       Role.class
+    |   |           |       Usuario.class
+    |   |           |       UsuarioDetails.class
+    |   |           |
+    |   |           +---repository
+    |   |           |       RoleRepository.class
+    |   |           |       UsuarioRepository.class
+    |   |           |
+    |   |           +---service
+    |   |           |   |   RoleService.class
+    |   |           |   |   UsuarioDetails.class
+    |   |           |   |   UsuarioDetailsService.class
+    |   |           |   |   UsuarioService.class
+    |   |           |   |
+    |   |           |   \---impl
+    |   |           |           RoleServiceImpl.class
+    |   |           |
+    |   |           +---validation
+    |   |           \---web
+    |   |               \---util
+    |   +---lixo
+    |   |       alterar-senha.html
+    |   |       lista-usuario.html
+    |   |       style.css
+    |   |
+    |   +---META-INF
+    |   |   |   MANIFEST.MF
+    |   |   |
+    |   |   \---maven
+    |   |       \---com.spk
+    |   |           \---SPK
+    |   |                   pom.properties
+    |   |                   pom.xml
+    |   |
+    |   +---static
+    |   |   +---css
+    |   |   |       app.css
+    |   |   |       spk-filtros.css
+    |   |   |       spk-padrao.css
+    |   |   |
+    |   |   +---dist
+    |   |   |   +---css
+    |   |   |   |   |   adminlte.css
+    |   |   |   |   |   adminlte.css.map
+    |   |   |   |   |   adminlte.min.css
+    |   |   |   |   |   adminlte.min.css.map
+    |   |   |   |   |
+    |   |   |   |   \---alt
+    |   |   |   |           adminlte.components.css
+    |   |   |   |           adminlte.components.css.map
+    |   |   |   |           adminlte.components.min.css
+    |   |   |   |           adminlte.components.min.css.map
+    |   |   |   |           adminlte.core.css
+    |   |   |   |           adminlte.core.css.map
+    |   |   |   |           adminlte.core.min.css
+    |   |   |   |           adminlte.core.min.css.map
+    |   |   |   |           adminlte.extra-components.css
+    |   |   |   |           adminlte.extra-components.css.map
+    |   |   |   |           adminlte.extra-components.min.css
+    |   |   |   |           adminlte.extra-components.min.css.map
+    |   |   |   |           adminlte.light.css
+    |   |   |   |           adminlte.light.css.map
+    |   |   |   |           adminlte.light.min.css
+    |   |   |   |           adminlte.light.min.css.map
+    |   |   |   |           adminlte.pages.css
+    |   |   |   |           adminlte.pages.css.map
+    |   |   |   |           adminlte.pages.min.css
+    |   |   |   |           adminlte.pages.min.css.map
+    |   |   |   |           adminlte.plugins.css
+    |   |   |   |           adminlte.plugins.css.map
+    |   |   |   |           adminlte.plugins.min.css
+    |   |   |   |           adminlte.plugins.min.css.map
+    |   |   |   |
+    |   |   |   +---img
+    |   |   |   |   |   AdminLTELogo.png
+    |   |   |   |   |   avatar.png
+    |   |   |   |   |   avatar2.png
+    |   |   |   |   |   avatar3.png
+    |   |   |   |   |   avatar4.png
+    |   |   |   |   |   avatar5.png
+    |   |   |   |   |   boxed-bg.jpg
+    |   |   |   |   |   boxed-bg.png
+    |   |   |   |   |   default-150x150.png
+    |   |   |   |   |   icons.png
+    |   |   |   |   |   photo1.png
+    |   |   |   |   |   photo2.png
+    |   |   |   |   |   photo3.jpg
+    |   |   |   |   |   photo4.jpg
+    |   |   |   |   |   prod-1.jpg
+    |   |   |   |   |   prod-2.jpg
+    |   |   |   |   |   prod-3.jpg
+    |   |   |   |   |   prod-4.jpg
+    |   |   |   |   |   prod-5.jpg
+    |   |   |   |   |   user1-128x128.jpg
+    |   |   |   |   |   user2-160x160.jpg
+    |   |   |   |   |   user3-128x128.jpg
+    |   |   |   |   |   user4-128x128.jpg
+    |   |   |   |   |   user5-128x128.jpg
+    |   |   |   |   |   user6-128x128.jpg
+    |   |   |   |   |   user7-128x128.jpg
+    |   |   |   |   |   user8-128x128.jpg
+    |   |   |   |   |
+    |   |   |   |   \---credit
+    |   |   |   |           american-express.png
+    |   |   |   |           cirrus.png
+    |   |   |   |           mastercard.png
+    |   |   |   |           paypal.png
+    |   |   |   |           paypal2.png
+    |   |   |   |           visa.png
+    |   |   |   |
+    |   |   |   \---js
+    |   |   |       |   .eslintrc.json
+    |   |   |       |   adminlte.js
+    |   |   |       |   adminlte.js.map
+    |   |   |       |   adminlte.min.js
+    |   |   |       |   adminlte.min.js.map
+    |   |   |       |   demo.js
+    |   |   |       |
+    |   |   |       \---pages
+    |   |   |               dashboard.js
+    |   |   |               dashboard2.js
+    |   |   |               dashboard3.js
+    |   |   |
+    |   |   +---images
+    |   |   |       error.ico
+    |   |   |       favicon.png
+    |   |   |       logo.png
+    |   |   |       spk-logo.ico
+    |   |   |
+    |   |   +---js
+    |   |   |   |   scripts.js
+    |   |   |   |   spk-alertas.js
+    |   |   |   |   spk-filtros.js
+    |   |   |   |   workspace.js
+    |   |   |   |
+    |   |   |   \---datatable
+    |   |   |           datatable-config.js
+    |   |   |           datatable-helper.js
+    |   |   |
+    |   |   +---plugins
+    |   |   |   +---bootstrap
+    |   |   |   |   \---js
+    |   |   |   |           bootstrap.bundle.js
+    |   |   |   |           bootstrap.bundle.js.map
+    |   |   |   |           bootstrap.bundle.min.js
+    |   |   |   |           bootstrap.bundle.min.js.map
+    |   |   |   |           bootstrap.js
+    |   |   |   |           bootstrap.js.map
+    |   |   |   |           bootstrap.min.js
+    |   |   |   |           bootstrap.min.js.map
+    |   |   |   |
+    |   |   |   +---datatables
+    |   |   |   |       jquery.dataTables.js
+    |   |   |   |       jquery.dataTables.min.js
+    |   |   |   |
+    |   |   |   +---datatables-bs4
+    |   |   |   |   +---css
+    |   |   |   |   |       dataTables.bootstrap4.css
+    |   |   |   |   |       dataTables.bootstrap4.min.css
+    |   |   |   |   |
+    |   |   |   |   \---js
+    |   |   |   |           dataTables.bootstrap4.js
+    |   |   |   |           dataTables.bootstrap4.min.js
+    |   |   |   |
+    |   |   |   +---fontawesome-free
+    |   |   |   |   +---css
+    |   |   |   |   |       all.css
+    |   |   |   |   |       all.min.css
+    |   |   |   |   |       brands.css
+    |   |   |   |   |       brands.min.css
+    |   |   |   |   |       fontawesome.css
+    |   |   |   |   |       fontawesome.min.css
+    |   |   |   |   |       regular.css
+    |   |   |   |   |       regular.min.css
+    |   |   |   |   |       solid.css
+    |   |   |   |   |       solid.min.css
+    |   |   |   |   |       svg-with-js.css
+    |   |   |   |   |       svg-with-js.min.css
+    |   |   |   |   |       v4-shims.css
+    |   |   |   |   |       v4-shims.min.css
+    |   |   |   |   |
+    |   |   |   |   \---webfonts
+    |   |   |   |           fa-brands-400.eot
+    |   |   |   |           fa-brands-400.svg
+    |   |   |   |           fa-brands-400.ttf
+    |   |   |   |           fa-brands-400.woff
+    |   |   |   |           fa-brands-400.woff2
+    |   |   |   |           fa-regular-400.eot
+    |   |   |   |           fa-regular-400.svg
+    |   |   |   |           fa-regular-400.ttf
+    |   |   |   |           fa-regular-400.woff
+    |   |   |   |           fa-regular-400.woff2
+    |   |   |   |           fa-solid-900.eot
+    |   |   |   |           fa-solid-900.svg
+    |   |   |   |           fa-solid-900.ttf
+    |   |   |   |           fa-solid-900.woff
+    |   |   |   |           fa-solid-900.woff2
+    |   |   |   |
+    |   |   |   +---icheck-bootstrap
+    |   |   |   |       icheck-bootstrap.css
+    |   |   |   |       icheck-bootstrap.min.css
+    |   |   |   |       LICENSE
+    |   |   |   |
+    |   |   |   +---inputmask
+    |   |   |   |       inputmask.es6.js
+    |   |   |   |       inputmask.js
+    |   |   |   |       inputmask.min.js
+    |   |   |   |       jquery.inputmask.js
+    |   |   |   |       jquery.inputmask.min.js
+    |   |   |   |
+    |   |   |   +---jquery
+    |   |   |   |       jquery.js
+    |   |   |   |       jquery.min.js
+    |   |   |   |       jquery.min.map
+    |   |   |   |       jquery.slim.js
+    |   |   |   |       jquery.slim.min.js
+    |   |   |   |       jquery.slim.min.map
+    |   |   |   |
+    |   |   |   +---select2
+    |   |   |   |   +---css
+    |   |   |   |   |       select2.css
+    |   |   |   |   |       select2.min.css
+    |   |   |   |   |
+    |   |   |   |   \---js
+    |   |   |   |       |   select2.full.js
+    |   |   |   |       |   select2.full.min.js
+    |   |   |   |       |   select2.js
+    |   |   |   |       |   select2.min.js
+    |   |   |   |       |
+    |   |   |   |       \---i18n
+    |   |   |   |               af.js
+    |   |   |   |               ar.js
+    |   |   |   |               az.js
+    |   |   |   |               bg.js
+    |   |   |   |               bn.js
+    |   |   |   |               bs.js
+    |   |   |   |               build.txt
+    |   |   |   |               ca.js
+    |   |   |   |               cs.js
+    |   |   |   |               da.js
+    |   |   |   |               de.js
+    |   |   |   |               dsb.js
+    |   |   |   |               el.js
+    |   |   |   |               en.js
+    |   |   |   |               es.js
+    |   |   |   |               et.js
+    |   |   |   |               eu.js
+    |   |   |   |               fa.js
+    |   |   |   |               fi.js
+    |   |   |   |               fr.js
+    |   |   |   |               gl.js
+    |   |   |   |               he.js
+    |   |   |   |               hi.js
+    |   |   |   |               hr.js
+    |   |   |   |               hsb.js
+    |   |   |   |               hu.js
+    |   |   |   |               hy.js
+    |   |   |   |               id.js
+    |   |   |   |               is.js
+    |   |   |   |               it.js
+    |   |   |   |               ja.js
+    |   |   |   |               ka.js
+    |   |   |   |               km.js
+    |   |   |   |               ko.js
+    |   |   |   |               lt.js
+    |   |   |   |               lv.js
+    |   |   |   |               mk.js
+    |   |   |   |               ms.js
+    |   |   |   |               nb.js
+    |   |   |   |               ne.js
+    |   |   |   |               nl.js
+    |   |   |   |               pl.js
+    |   |   |   |               ps.js
+    |   |   |   |               pt-BR.js
+    |   |   |   |               pt.js
+    |   |   |   |               ro.js
+    |   |   |   |               ru.js
+    |   |   |   |               sk.js
+    |   |   |   |               sl.js
+    |   |   |   |               sq.js
+    |   |   |   |               sr-Cyrl.js
+    |   |   |   |               sr.js
+    |   |   |   |               sv.js
+    |   |   |   |               th.js
+    |   |   |   |               tk.js
+    |   |   |   |               tr.js
+    |   |   |   |               uk.js
+    |   |   |   |               vi.js
+    |   |   |   |               zh-CN.js
+    |   |   |   |               zh-TW.js
+    |   |   |   |
+    |   |   |   \---sweetalert2
+    |   |   |           sweetalert2.all.js
+    |   |   |           sweetalert2.all.min.js
+    |   |   |           sweetalert2.css
+    |   |   |           sweetalert2.js
+    |   |   |           sweetalert2.min.css
+    |   |   |           sweetalert2.min.js
+    |   |   |
+    |   |   \---webfonts
+    |   |           fa-brands-400.eot
+    |   |           fa-brands-400.svg
+    |   |           fa-brands-400.ttf
+    |   |           fa-brands-400.woff
+    |   |           fa-brands-400.woff2
+    |   |           fa-regular-400.eot
+    |   |           fa-regular-400.svg
+    |   |           fa-regular-400.ttf
+    |   |           fa-regular-400.woff
+    |   |           fa-regular-400.woff2
+    |   |           fa-solid-900.eot
+    |   |           fa-solid-900.svg
+    |   |           fa-solid-900.ttf
+    |   |           fa-solid-900.woff
+    |   |           fa-solid-900.woff2
+    |   |
+    |   \---templates
+    |       |   acesso-negado.html
+    |       |   dashboard.html
+    |       |   home.html
+    |       |   layout-iframe.html
+    |       |   layout.html
+    |       |   login.html
+    |       |   menu.html
+    |       |
+    |       +---dashboard
+    |       |       admin.html
+    |       |       usuario.html
+    |       |
+    |       +---error
+    |       |       erro.html
+    |       |
+    |       +---fragments
+    |       |   |   datatables.html
+    |       |   |   filtro-grid.html
+    |       |   |   footer.html
+    |       |   |   form-card.html
+    |       |   |   grid-card.html
+    |       |   |   head.html
+    |       |   |   header.html
+    |       |   |   mensagens.html
+    |       |   |   navbar.html
+    |       |   |   sidebar.html
+    |       |   |
+    |       |   \---usuarios
+    |       |           filtro-usuario.html
+    |       |           grid-usuario.html
+    |       |
+    |       +---parametros
+    |       |       parametros.html
+    |       |
+    |       \---usuarios
+    |               alterar-senha.html
+    |               form-usuario.html
+    |               griduUsuario.png
+    |               lista-usuario.html
+    |
+    +---generated-sources
+    |   \---annotations
+    +---generated-test-sources
+    |   \---test-annotations
+    +---maven-archiver
+    |       pom.properties
+    |
+    +---maven-status
+    |   \---maven-compiler-plugin
+    |       +---compile
+    |       |   \---default-compile
+    |       |           createdFiles.lst
+    |       |           inputFiles.lst
+    |       |
+    |       \---testCompile
+    |           \---default-testCompile
+    |                   createdFiles.lst
+    |                   inputFiles.lst
+    |
+    +---surefire-reports
+    |       com.spk.sistemas.SpkApplicationTests.txt
+    |       TEST-com.spk.sistemas.SpkApplicationTests.xml
+    |
+    \---test-classes
+        \---com
+            \---spk
+                \---sistemas
+                        SpkApplicationTests.class
+

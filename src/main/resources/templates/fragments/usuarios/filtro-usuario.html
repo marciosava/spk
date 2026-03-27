@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+    <!--
+        Campos específicos do filtro da listagem de usuários.
+        Este fragmento é consumido pelo filtro-grid.html
+    -->
+    <th:block th:fragment="campos">
+
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="filtroNome">Nome / Login / E-mail</label>
+                <input type="text"
+                       id="filtroNome"
+                       name="nome"
+                       class="form-control"
+                       placeholder="Digite nome, login ou e-mail">
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="filtroStatus">Status</label>
+                <select id="filtroStatus" name="ativo" class="form-control">
+                    <option value="">Todos</option>
+                    <option value="true">Ativo</option>
+                    <option value="false">Inativo</option>
+                </select>
+            </div>
+        </div>
+
+    </th:block>
+
+</body>
+</html>

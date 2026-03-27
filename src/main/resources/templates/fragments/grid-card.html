@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="grid(titulo, conteudoFragmento)"
+     class="card card-outline card-primary mb-0 spk-shadow-sm">
+
+    <div class="card-header py-2" th:if="${titulo != null}">
+        <h3 class="card-title mb-0">
+            <i class="fas fa-table mr-2"></i>
+            <span th:text="${titulo}">Grid</span>
+        </h3>
+    </div>
+
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <th:block th:replace="${conteudoFragmento}"></th:block>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,159 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout-iframe}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout-iframe}">
 
 <head>
-<title>Lista de Usuários | SPK Sistemas</title>
+    <title>Lista de Usuários | SPK Sistemas</title>
 </head>
 
 <body>
-	<div layout:fragment="corpo">
+<div layout:fragment="corpo">
 
-		<section class="content">
-			<div class="container-fluid px-0">
+    <section class="content">
+        <div class="container-fluid px-0">
 
-				<div class="spk-page-title mb-3">
-					<h3>
-						<i class="fas fa-users mr-2 text-primary"></i>Usuários Cadastrados
-					</h3>
-					<p>Consulta, manutenção e gerenciamento dos usuários do
-						sistema.</p>
-				</div>
+            <div class="spk-page-title mb-3">
+                <h3>
+                    <i class="fas fa-users mr-2 text-primary"></i>Usuários Cadastrados
+                </h3>
+                <p>Consulta, manutenção e gerenciamento dos usuários do sistema.</p>
+            </div>
 
-				<div class="card card-outline card-primary spk-shadow-sm">
+            <div class="card card-outline card-primary spk-shadow-sm">
 
-					<div class="card-header">
-						<div
-							class="d-flex justify-content-between align-items-center flex-wrap">
-							<h3 class="card-title mb-0">
-								<i class="fas fa-list mr-2"></i>Listagem de Usuários
-							</h3>
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+                        <h3 class="card-title mb-0">
+                            <i class="fas fa-list mr-2"></i>Listagem de Usuários
+                        </h3>
 
-							<a class="btn btn-primary btn-sm"
-								th:href="@{/usuarios/cadastrar}"> <i
-								class="fas fa-user-plus mr-1"></i>Novo Usuário
-							</a>
-						</div>
-					</div>
+                        <a class="btn btn-primary btn-sm"
+                           th:href="@{/usuarios/cadastrar}">
+                            <i class="fas fa-user-plus mr-1"></i>Novo Usuário
+                        </a>
+                    </div>
+                </div>
 
-					<div class="card-body">
+                <div class="card-body">
 
-						<!-- FILTROS EM ACCORDION -->
-						<div class="card card-outline card-danger mb-3" id="cardFiltros">
-							<div class="card-header py-2">
-								<div class="d-flex justify-content-between align-items-center">
-									<h3 class="card-title mb-0">
-										<i class="fas fa-search mr-2"></i>Filtros
-									</h3>
+                    <!-- FILTRO PADRÃO GLOBAL -->
+                    <div th:replace="~{fragments/filtro-grid :: filtro('Filtros', ~{fragments/usuarios/filtro-usuario :: campos})}"></div>
 
-									<button type="button" class="btn btn-tool"
-										id="btnToggleFiltros" title="Expandir/Recolher filtros"
-										aria-expanded="true">
-										<span id="iconeFiltroToggle"
-											style="font-size: 2.6rem; font-weight: 900; line-height: 1; color: #343a40; display: inline-block; width: 32px; text-align: center; user-select: none;">-</span>
-									</button>
-								</div>
-							</div>
+                    <!-- CONFIGURAÇÕES DA GRID -->
+                    <div id="usuariosConfig"
+                         th:data-url-listar="@{/usuarios/datatables}"
+                         th:data-url-editar-base="@{/usuarios/editar/0}"
+                         th:data-url-excluir-base="@{/usuarios/excluir/0}">
+                    </div>
 
-							<div class="card-body pb-2" id="cardBodyFiltros">
-								<form id="formFiltrosUsuarios">
-									<div class="row">
+                    <!-- GRID PADRÃO GLOBAL -->
+                    <div th:replace="~{fragments/grid-card :: grid(null, ~{fragments/usuarios/grid-usuario :: tabela})}"></div>
 
-										<div class="col-md-5">
-											<div class="form-group">
-												<label for="filtroNome">Nome / Login / Email</label> <input
-													type="text" id="filtroNome" class="form-control"
-													placeholder="Digite nome, login ou e-mail">
-											</div>
-										</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-										<div class="col-md-3">
-											<div class="form-group">
-												<label for="filtroStatus">Status</label> <select
-													id="filtroStatus" class="form-control">
-													<option value="">Todos</option>
-													<option value="true">Ativo</option>
-													<option value="false">Inativo</option>
-												</select>
-											</div>
-										</div>
+    <script th:src="@{/js/spk-filtros.js}"></script>
+    <script th:src="@{/js/spk-grid.js}"></script>
 
-										<div class="col-md-4">
-											<div class="form-group">
-												<label class="d-block">&nbsp;</label>
-												<div class="d-flex justify-content-md-end flex-wrap">
-													<button type="button"
-														class="btn btn-primary mr-2 mb-2 mb-md-0"
-														id="btnPesquisar">
-														<i class="fas fa-search mr-1"></i>Pesquisar
-													</button>
-
-													<button type="button" class="btn btn-outline-secondary"
-														id="btnLimpar">
-														<i class="fas fa-eraser mr-1"></i>Limpar
-													</button>
-												</div>
-											</div>
-										</div>
-
-									</div>
-								</form>
-							</div>
-						</div>
-
-						<div id="usuariosConfig"
-							th:data-url-listar="@{/usuarios/datatables}"
-							th:data-url-editar-base="@{/usuarios/editar/0}"
-							th:data-url-excluir-base="@{/usuarios/excluir/0}"></div>
-
-						<!-- GRID COM BORDA AZUL -->
-						<div class="card card-outline card-primary mb-0">
-							<div class="card-body p-0">
-								<div class="table-responsive">
-									<table class="table table-bordered table-hover mb-0">
-										<thead>
-											<tr class="text-center">
-												<th style="width: 70px;">ID</th>
-												<th>Nome</th>
-												<th style="width: 160px;">Login</th>
-												<th>Email</th>
-												<th style="width: 110px;">Status</th>
-												<th style="width: 220px;">Perfis</th>
-												<th style="width: 130px;">Ações</th>
-											</tr>
-										</thead>
-										<tbody id="tbodyUsuarios">
-											<tr>
-												<td colspan="7" class="text-center text-muted">Carregando
-													usuários...</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<script>
+    <script>
         document.addEventListener('DOMContentLoaded', function () {
+
             const config = document.getElementById('usuariosConfig');
-            const tbody = document.getElementById('tbodyUsuarios');
-            const filtroNome = document.getElementById('filtroNome');
-            const filtroStatus = document.getElementById('filtroStatus');
-            const btnPesquisar = document.getElementById('btnPesquisar');
-            const btnLimpar = document.getElementById('btnLimpar');
-            const formFiltros = document.getElementById('formFiltrosUsuarios');
-
-            const cardFiltros = document.getElementById('cardFiltros');
-            const cardBodyFiltros = document.getElementById('cardBodyFiltros');
-            const btnToggleFiltros = document.getElementById('btnToggleFiltros');
-            const iconeFiltroToggle = document.getElementById('iconeFiltroToggle');
-
             if (!config) {
                 return;
             }
@@ -161,19 +69,6 @@
             const urlListar = config.dataset.urlListar;
             const urlEditarBase = config.dataset.urlEditarBase;
             const urlExcluirBase = config.dataset.urlExcluirBase;
-
-            function escapeHtml(value) {
-                if (value === null || value === undefined) {
-                    return '';
-                }
-
-                return String(value)
-                    .replace(/&/g, '&amp;')
-                    .replace(/</g, '&lt;')
-                    .replace(/>/g, '&gt;')
-                    .replace(/"/g, '&quot;')
-                    .replace(/'/g, '&#39;');
-            }
 
             function renderStatus(ativo) {
                 return ativo
@@ -190,7 +85,7 @@
                     .split(',')
                     .map(function (role) {
                         const label = role.trim().replace('ROLE_', '').replace(/_/g, ' ');
-                        return '<span class="badge badge-info mr-1 mb-1">' + escapeHtml(label) + '</span>';
+                        return '<span class="badge badge-info mr-1 mb-1">' + SpkGrid.escapeHtml(label) + '</span>';
                     })
                     .join('');
             }
@@ -198,7 +93,7 @@
             function renderAcoes(u) {
                 const editar = urlEditarBase.replace('/0', '/' + u.id);
                 const excluir = urlExcluirBase.replace('/0', '/' + u.id);
-                const nomeUsuario = escapeHtml(u.nome || u.username || ('ID ' + u.id));
+                const nomeUsuario = SpkGrid.escapeHtml(u.nome || u.username || ('ID ' + u.id));
 
                 return `
                     <div class="spk-acoes">
@@ -220,164 +115,81 @@
                 `;
             }
 
-            function renderLinha(u) {
-                return `
-                    <tr>
-                        <td class="text-center align-middle">${escapeHtml(u.id)}</td>
-                        <td class="align-middle">${escapeHtml(u.nome)}</td>
-                        <td class="align-middle">${escapeHtml(u.username)}</td>
-                        <td class="align-middle">${escapeHtml(u.email)}</td>
-                        <td class="text-center align-middle">${renderStatus(u.ativo)}</td>
-                        <td class="text-center align-middle">${renderPerfis(u.roles)}</td>
-                        <td class="spk-col-acoes text-right align-middle">${renderAcoes(u)}</td>
-                    </tr>
-                `;
-            }
-
-            function renderSemRegistros() {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="7" class="text-center text-muted">
-                            Nenhum usuário encontrado.
-                        </td>
-                    </tr>
-                `;
-            }
-
-            function renderErro() {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="7" class="text-center text-danger">
-                            Erro ao carregar usuários.
-                        </td>
-                    </tr>
-                `;
-            }
-
-            function atualizarEstadoFiltro(recolhido) {
-                if (!cardFiltros || !cardBodyFiltros || !iconeFiltroToggle || !btnToggleFiltros) {
-                    return;
-                }
-
-                if (recolhido) {
-                    cardFiltros.classList.add('collapsed-card');
-                    cardBodyFiltros.style.display = 'none';
-                    iconeFiltroToggle.textContent = '+';
-                    btnToggleFiltros.setAttribute('aria-expanded', 'false');
-                } else {
-                    cardFiltros.classList.remove('collapsed-card');
-                    cardBodyFiltros.style.display = '';
-                    iconeFiltroToggle.textContent = '-';
-                    btnToggleFiltros.setAttribute('aria-expanded', 'true');
-                }
-            }
-
-            function filtrosEstaoRecolhidos() {
-                return cardFiltros && cardFiltros.classList.contains('collapsed-card');
-            }
-
-            function alternarFiltros() {
-                atualizarEstadoFiltro(!filtrosEstaoRecolhidos());
-            }
-
-            function recolherFiltros() {
-                if (!filtrosEstaoRecolhidos()) {
-                    atualizarEstadoFiltro(true);
-                }
-            }
-
-            function expandirFiltros() {
-                if (filtrosEstaoRecolhidos()) {
-                    atualizarEstadoFiltro(false);
-                }
-            }
-
-            function carregarUsuarios(autoRecolher = false) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="7" class="text-center text-muted">Carregando usuários...</td>
-                    </tr>
-                `;
-
-                const params = new URLSearchParams({
-                    draw: '1',
-                    start: '0',
-                    length: '100',
-                    nome: filtroNome.value || '',
-                    ativo: filtroStatus.value || ''
-                });
-
-                fetch(urlListar + '?' + params.toString(), {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json'
+            const tabelaUsuarios = SpkGrid.create({
+                tableSelector: '#tabelaUsuarios',
+                ajaxUrl: urlListar,
+                filterContainerSelector: '[data-spk-filter]',
+                autoLoad: false,
+                initialMessage: 'Selecione os filtros para Pesquisar.',
+                pageLength: 10,
+                order: [ [1, 'asc'] ],
+                filters: [
+                    { param: 'nome', selector: '#filtroNome' },
+                    { param: 'ativo', selector: '#filtroStatus' }
+                ],
+                liveFilters: ['#filtroNome'],
+                enterFilters: ['#filtroNome'],
+                liveSearchDelay: 400,
+                columns: [
+                    {
+                        data: 'id',
+                        className: 'text-center align-middle'
+                    },
+                    {
+                        data: 'nome',
+                        className: 'align-middle',
+                        render: function (data) {
+                            return SpkGrid.escapeHtml(data || '');
+                        }
+                    },
+                    {
+                        data: 'username',
+                        className: 'align-middle',
+                        render: function (data) {
+                            return SpkGrid.escapeHtml(data || '');
+                        }
+                    },
+                    {
+                        data: 'email',
+                        className: 'align-middle',
+                        render: function (data) {
+                            return SpkGrid.escapeHtml(data || '');
+                        }
+                    },
+                    {
+                        data: 'ativo',
+                        className: 'text-center align-middle',
+                        render: function (data) {
+                            return renderStatus(data);
+                        }
+                    },
+                    {
+                        data: 'roles',
+                        className: 'text-center align-middle',
+                        render: function (data) {
+                            return renderPerfis(data);
+                        }
+                    },
+                    {
+                        data: null,
+                        orderable: false,
+                        searchable: false,
+                        className: 'spk-col-acoes text-right align-middle',
+                        render: function (data, type, row) {
+                            return renderAcoes(row);
+                        }
                     }
-                })
-                .then(function (response) {
-                    if (!response.ok) {
-                        throw new Error('HTTP ' + response.status);
-                    }
-                    return response.json();
-                })
-                .then(function (response) {
-                    const lista = response && Array.isArray(response.data) ? response.data : [];
-
-                    if (!lista.length) {
-                        renderSemRegistros();
-                    } else {
-                        let html = '';
-                        lista.forEach(function (u) {
-                            html += renderLinha(u);
-                        });
-                        tbody.innerHTML = html;
-                    }
-
-                    if (autoRecolher) {
-                        recolherFiltros();
-                    }
-                })
-                .catch(function () {
-                    renderErro();
-
-                    if (autoRecolher) {
-                        recolherFiltros();
-                    }
-                });
-            }
-
-            if (btnToggleFiltros) {
-                btnToggleFiltros.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    alternarFiltros();
-                });
-            }
-
-            btnPesquisar.addEventListener('click', function () {
-                carregarUsuarios(true);
-            });
-
-            btnLimpar.addEventListener('click', function () {
-                formFiltros.reset();
-                expandirFiltros();
-                carregarUsuarios(false);
-            });
-
-            filtroNome.addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    carregarUsuarios(true);
+                ],
+                onAjaxError: function () {
+                    console.error('Erro ao carregar dados da grid de usuários.');
                 }
             });
 
-            filtroStatus.addEventListener('change', function () {
-                carregarUsuarios(true);
-            });
-
-            atualizarEstadoFiltro(false);
-            carregarUsuarios(false);
+            window.tabelaUsuarios = tabelaUsuarios;
+            
         });
     </script>
 
-	</div>
+</div>
 </body>
 </html>

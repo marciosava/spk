@@ -77,6 +77,16 @@ a {
     background: #fff;
 }
 
+/* HEADER FIXO - PADRÃO SPK */
+.main-header.spk-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--spk-header-height);
+    z-index: 1035;
+}
+
 .spk-navbar-btn {
     color: var(--spk-text) !important;
     border-radius: var(--spk-radius);
@@ -128,6 +138,25 @@ a {
    ========================= */
 .spk-sidebar {
     box-shadow: 2px 0 12px rgba(0, 0, 0, .08);
+}
+
+/* Compensações do topo fixo */
+body:not(.layout-top-nav) .content-wrapper {
+    margin-top: var(--spk-header-height);
+}
+
+body:not(.layout-top-nav) .main-sidebar {
+    margin-top: var(--spk-header-height);
+}
+
+body:not(.layout-top-nav) .main-sidebar,
+body:not(.layout-top-nav) .main-sidebar::before {
+    height: calc(100vh - var(--spk-header-height));
+}
+
+body:not(.layout-top-nav) .sidebar {
+    height: calc(100vh - var(--spk-header-height));
+    overflow-y: auto;
 }
 
 .spk-brand {
@@ -588,7 +617,6 @@ label {
     margin-bottom: .35rem;
 }
 
-
 /* =========================
    COLUNA DE AÇÕES - PADRÃO SPK
    ========================= */
@@ -745,79 +773,6 @@ td.text-right .btn.btn-sm + .btn.btn-sm {
     }
 }
 
-
-/* ====== ACRESCENTADO EM 20-03-2026 ======= */
-
-/* =========================
-   SWEETALERT2 - PADRÃO SPK
-   ========================= */
-.spk-swal-popup {
-    border-radius: .85rem;
-    box-shadow: 0 14px 36px rgba(0, 0, 0, .16);
-    padding: 1.25rem 1.25rem 1rem;
-}
-
-.spk-swal-title {
-    color: var(--spk-title);
-    font-weight: 700;
-    font-size: 1.25rem;
-    line-height: 1.3;
-}
-
-.spk-swal-html {
-    color: var(--spk-text);
-    font-size: .95rem;
-    line-height: 1.5;
-}
-
-.spk-swal-confirm,
-.spk-swal-cancel,
-.spk-swal-deny {
-    border-radius: var(--spk-radius);
-    font-weight: 600;
-    min-width: 110px;
-    box-shadow: none !important;
-}
-
-.spk-swal-confirm.btn-danger,
-.spk-swal-confirm.btn-primary,
-.spk-swal-confirm.btn-success {
-    color: #fff;
-}
-
-.spk-swal-confirm:focus,
-.spk-swal-cancel:focus,
-.spk-swal-deny:focus {
-    box-shadow: 0 0 0 .2rem rgba(47, 111, 237, .15) !important;
-}
-
-.spk-swal-icon.swal2-warning {
-    border-color: rgba(255, 193, 7, .35);
-    color: #d39e00;
-}
-
-.spk-swal-icon.swal2-success {
-    border-color: rgba(25, 135, 84, .25);
-    color: var(--spk-success);
-}
-
-.spk-swal-icon.swal2-error {
-    border-color: rgba(220, 53, 69, .25);
-    color: var(--spk-danger);
-}
-
-.spk-swal-actions {
-    gap: .5rem;
-    margin-top: 1.25rem;
-}
-
-.spk-swal-loader {
-    border-radius: .75rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .12);
-}
-
-/* ====== FIM DO ACRESCENTADO EM 20-03-2026 ======= */
-
 /* =========================
    ALERTAS / FEEDBACK
    ========================= */
@@ -884,6 +839,7 @@ td.text-right .btn.btn-sm + .btn.btn-sm {
 body.iframe-mode .content-wrapper,
 body.layout-top-nav .content-wrapper {
     background-color: var(--spk-bg);
+    margin-top: 0 !important;
 }
 
 /* =========================
@@ -950,4 +906,28 @@ body.layout-top-nav .content-wrapper {
         display: block !important;
         margin-bottom: .35rem;
     }
+}
+
+/* =========================
+   FILTRO ACCORDION - TOGGLE (+ / -)
+   ========================= */
+.spk-toggle-icon {
+    font-size: 2.4rem;
+    font-weight: 700;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--spk-text);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    line-height: 1;
+    user-select: none;
+    transition: transform .15s ease, color .15s ease;
+}
+
+/* leve destaque no hover */
+.btn-tool:hover .spk-toggle-icon {
+    transform: scale(1.15);
+    color: var(--spk-primary);
 }
